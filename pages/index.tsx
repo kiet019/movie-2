@@ -26,7 +26,7 @@ interface Film {
   id: string;
   type: string;
 }
-export default function index() {
+export default function Home() {
   const [activeLink, setActiveLink] = useState<String>("Home");
   const handleLinkClick = (link: String) => {
     setActiveLink(link);
