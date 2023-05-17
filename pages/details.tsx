@@ -86,13 +86,13 @@ export default function Details() {
               <img src={film.image} />
             </div>
             <div>
-              <Text h2 css={{ marginBottom: "2rem" }}>
+              <Text size="2.5rem" css={{ marginBottom: "1rem" }} weight="bold">
                 {film.title}
               </Text>
-              <Text size="$2xl">Year: {film.year}</Text>
-              <Text size="$2xl">Director: {film.director}</Text>
+              <Text size="1.5rem">Year: {film.year}</Text>
+              <Text size="1.5rem">Director: {film.director}</Text>
               <div className="details-information">
-                <Text size="$xl">{film.information}</Text>
+                <Text size="1.2rem">{film.information}</Text>
               </div>
             </div>
           </div>
