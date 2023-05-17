@@ -6,32 +6,73 @@ body {
   line-height: 1.6;
   font-size: 18px;
 }
-
+a {
+  display: block;
+}
 * {
   box-sizing: border-box;
 }
-
+path {
+  color: black;
+}
 img {
-  max-width: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
-// h3 {
-//   white-space: nowrap;
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-// }
 #__next {
+  height: fit-content;
   .container {
-    max-width: 65rem;
-    margin: auto;
-    padding: 7rem 0rem;
-  }
-  nav {
-    position: fixed;
-    li:hover {
-      color: blue;
-      font-size: large;
+    .banner-image {
+      height: 50vh;
+      width: 100%;
     }
-  }  
+    .user {
+      max-width: 65rem;
+      margin: auto;
+      padding: 7rem 0rem;
+    }
+    nav {
+      position: fixed;
+      li:hover {
+        color: blue;
+        font-size: large;
+      }
+    }
+  }
+  .films-list {
+    margin-bottom: 5rem;
+    nav {
+      position: relative;
+    }
+  }
+  iframe {
+    height: 35vw;
+  }
+  .button-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0px;
+    border: 0px;
+  }
+  .button-video:hover {
+    box-shadow: 0px 0px 10px black;
+  }
+  .detail-main {
+    display: flex;
+    padding: 1rem;
+    .detail-image {
+      width: 50vw;
+      padding: 1.4rem;
+      img {
+        height: 100%;
+        border: 1px solid black;
+        box-shadow: 0px 0px 5px black;
+      }
+    }
+    .details-information {
+      padding: 3rem 0rem;
+    }
+  }
 }
