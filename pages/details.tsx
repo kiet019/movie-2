@@ -85,7 +85,6 @@ export default function Details() {
             <div className="detail-image">
               <img src={film.image} />
             </div>
-            <Spacer x={1} />
             <div>
               <Text h2 css={{ marginBottom: "2rem" }}>
                 {film.title}
