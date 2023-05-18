@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { AiOutlineUnorderedList } from "../../node_modules/react-icons/ai";
 import { MdOutlineFavorite } from "../../node_modules/react-icons/md";
 import { MdHd } from "../../node_modules/react-icons/md";
-import Image from "next/image";
 interface Film {
   image: string;
   title: string;
@@ -82,7 +81,7 @@ export default function Details() {
           </Grid.Container>
           <div className="detail-main">
             <div className="detail-image">
-              <Image src={film.image} alt=""/>
+              <img src={film.image} alt=""/>
             </div>
             <div>
               <Text size="2.5rem" css={{ marginBottom: "1rem" }} weight="bold">

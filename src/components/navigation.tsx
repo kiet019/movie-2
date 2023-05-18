@@ -214,6 +214,7 @@ export default function Navigation({ activeLink }: Props) {
                     onClick={() => {
                       signOut(auth).then(() => {
                         dispatch(setIsActive({ status: false}))
+                        router.push("/")
                       });
                     }}
                   >

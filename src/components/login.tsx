@@ -1,10 +1,18 @@
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
-import { FiUser } from "../../node_modules/react-icons/fi";
+import { AiOutlineMail } from "../../node_modules/react-icons/ai";
 import { RiLockPasswordLine } from "../../node_modules/react-icons/ri";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { FcGoogle } from "../../node_modules/react-icons/fc";
 import { useAppDispatch } from "../features/hook";
+import { setIsActive } from "../features/userstatus";
+
 interface Props {
   visible: boolean;
   setVisible: React.Dispatch<SetStateAction<boolean>>;
@@ -12,12 +20,34 @@ interface Props {
 const ggProvider = new GoogleAuthProvider();
 const auth = getAuth();
 export default function Login({ visible, setVisible }: Props) {
+  const dispatch = useAppDispatch();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [sign, setSign] = useState(false);
   const closeHandler = () => {
     setVisible(false);
-    console.log("closed");
   };
-
-
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, username, password).then((result) => {
+      setVisible(false)
+    }).catch((error) => {
+      setError(error.message);
+    });
+    
+  };
+  const handleRegister = () => {
+    createUserWithEmailAndPassword(auth, username, password).then((result) => {
+      setVisible(false)
+    }).catch((error) => {
+      setError(error.message);
+    });
+  };
+  useEffect(() => {
+    setError("")
+    setUsername("")
+    setPassword("")
+  }, [sign]);
   return (
     <div>
       <Modal
@@ -35,38 +65,71 @@ export default function Login({ visible, setVisible }: Props) {
           </Text>
         </Modal.Header>
         <Modal.Body>
-          <Input
-            clearable
-            bordered
-            fullWidth
-            color="primary"
-            size="lg"
-            placeholder="Username"
-            contentLeft={<FiUser />}
-          />
-          <Input
-            clearable
-            bordered
-            fullWidth
-            color="primary"
-            size="lg"
-            placeholder="Password"
-            contentLeft={<RiLockPasswordLine />}
-          />
-          <Row justify="space-between">
-            <Checkbox>
-              <Text size={14}>Remember me</Text>
-            </Checkbox>
-            <Text size={14}>Forgot password?</Text>
-          </Row>
+          {sign === false ? (
+            <>
+              <Input
+                clearable
+                bordered
+                fullWidth
+                color="primary"
+                size="lg"
+                placeholder="Email"
+                contentLeft={<AiOutlineMail />}
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
+              <Input.Password
+                bordered
+                fullWidth
+                color="primary"
+                size="lg"
+                placeholder="Password"
+                contentLeft={<RiLockPasswordLine />}
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+              <Row justify="space-between">
+                <Checkbox>
+                  <Text size={14}>Remember me</Text>
+                </Checkbox>
+                <Text size={14}>Forgot password?</Text>
+              </Row>
+            </>
+          ) : (
+            <>
+              <Text h3>Register</Text>
+              <Input
+                placeholder="Email"
+                contentRight={<AiOutlineMail />}
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
+              <Input.Password
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </>
+          )}
+          {error === "" ? null : <Text color="error">{error}</Text>}
           <Button
             color="warning"
             auto
             onPress={() => {
               signInWithPopup(auth, ggProvider).then((result) => {
- 
                 setVisible(false);
-              });
+              }).catch((error) => {
+                setError(error.message)
+              }
+              );
             }}
           >
             <FcGoogle style={{ fontSize: "1.5rem", marginRight: "1rem" }} />{" "}
@@ -74,12 +137,39 @@ export default function Login({ visible, setVisible }: Props) {
           </Button>
         </Modal.Body>
         <Modal.Footer>
-          <Button auto flat color="error" onPress={closeHandler}>
-            Close
-          </Button>
-          <Button auto onPress={closeHandler}>
-            Login
-          </Button>
+          {sign === false ? (
+            <>
+              <Button
+                color="primary"
+                light
+                auto
+                onPress={() => {
+                  setSign(true);
+                }}
+              >
+                Register
+              </Button>
+              <Button auto onPress={handleLogin}>
+                Login
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                color="primary"
+                light
+                auto
+                onPress={() => {
+                  setSign(false);
+                }}
+              >
+                Login
+              </Button>
+              <Button auto onPress={handleRegister}>
+                Register
+              </Button>
+            </>
+          )}
         </Modal.Footer>
       </Modal>
     </div>
