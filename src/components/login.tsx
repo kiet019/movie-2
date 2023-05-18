@@ -2,25 +2,21 @@ import React, { SetStateAction } from "react";
 import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
 import { FiUser } from "../../node_modules/react-icons/fi";
 import { RiLockPasswordLine } from "../../node_modules/react-icons/ri";
-import {
-  GoogleAuthProvider,
-  UserCredential,
-  getAuth,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { FcGoogle } from "../../node_modules/react-icons/fc";
+import { useAppDispatch } from "../features/hook";
 interface Props {
   visible: boolean;
   setVisible: React.Dispatch<SetStateAction<boolean>>;
-  setUser: React.Dispatch<SetStateAction<UserCredential | undefined>>;
 }
 const ggProvider = new GoogleAuthProvider();
 const auth = getAuth();
-export default function Login({ visible, setVisible, setUser }: Props) {
+export default function Login({ visible, setVisible }: Props) {
   const closeHandler = () => {
     setVisible(false);
     console.log("closed");
   };
+
 
   return (
     <div>
@@ -68,7 +64,7 @@ export default function Login({ visible, setVisible, setUser }: Props) {
             auto
             onPress={() => {
               signInWithPopup(auth, ggProvider).then((result) => {
-                setUser(result);
+ 
                 setVisible(false);
               });
             }}

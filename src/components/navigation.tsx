@@ -19,6 +19,8 @@ import {
   signOut,
 } from "firebase/auth";
 import Login from "./login";
+import { useAppDispatch, useAppSelector } from "../features/hook";
+import { setIsActive } from "../features/usercode";
 
 interface Item {
   key: string;
@@ -29,8 +31,9 @@ interface Props {
 }
 const auth = getAuth();
 export default function Navigation({ activeLink }: Props) {
+  const userStatus = useAppSelector((state) => state.userStatus.status)
+  const dispatch = useAppDispatch();
   const [visible, setVisible] = useState(false);
-  const [user, setUser] = useState<UserCredential>();
   const items: Item[] = [
     { key: "movies", name: "Movies" },
     { key: "series", name: "Series" },
@@ -49,21 +52,24 @@ export default function Navigation({ activeLink }: Props) {
     const href = "/search?title=" + searchParams;
     router.push(href);
   };
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+
   return (
     <>
       <Navbar>
         <Navbar.Brand>
-          <Link href="/">
+          <div
+            onClick={() => {
+              router.push("/");
+            }}
+            className="hover-mouse"
+          >
             <MdMovieFilter
               style={{
                 height: "4em",
                 width: "4em",
               }}
             />
-          </Link>
+          </div>
         </Navbar.Brand>
         <Navbar.Content activeColor="primary" hideIn="xs" variant="underline">
           <Navbar.Link isActive={activeLink === "Type"}>
@@ -85,12 +91,14 @@ export default function Navigation({ activeLink }: Props) {
                 {items.map((item) => {
                   return (
                     <Dropdown.Item key={item.key}>
-                      <Link
-                        css={{ color: "black" }}
-                        href={"/search?type=" + item.key}
+                      <div
+                        onClick={() => {
+                          router.push("/search?type=" + item.key);
+                        }}
+                        className="hover-mouse"
                       >
                         {item.name}
-                      </Link>
+                      </div>
                     </Dropdown.Item>
                   );
                 })}
@@ -139,7 +147,7 @@ export default function Navigation({ activeLink }: Props) {
             />
           </form>
         </Navbar.Content>
-        {user === undefined ? (
+        {auth.currentUser === null ? (
           <Navbar.Content>
             <Navbar.Item>
               <Button
@@ -172,9 +180,9 @@ export default function Navigation({ activeLink }: Props) {
                     color="secondary"
                     size="md"
                     src={
-                      user.user.photoURL === null
+                      auth.currentUser.photoURL === null
                         ? ""
-                        : user.user.photoURL
+                        : auth.currentUser.photoURL
                     }
                     alt=""
                   />
@@ -190,19 +198,13 @@ export default function Navigation({ activeLink }: Props) {
                     Logged in as
                   </Text>
                   <Text b color="inherit" css={{ d: "flex" }}>
-                    {user.user.email}
+                    {auth.currentUser.email}
                   </Text>
                 </Dropdown.Item>
                 <Dropdown.Item key="settings" withDivider>
-                  My Settings
-                </Dropdown.Item>
-                <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
-                <Dropdown.Item key="analytics" withDivider>
-                  Analytics
-                </Dropdown.Item>
-                <Dropdown.Item key="system">System</Dropdown.Item>
-                <Dropdown.Item key="configurations">
-                  Configurations
+                  <div onClick={() => {
+                    router.push("/favor")
+                  }}>Favorite List</div>
                 </Dropdown.Item>
                 <Dropdown.Item key="help_and_feedback" withDivider>
                   Help & Feedback
@@ -211,7 +213,7 @@ export default function Navigation({ activeLink }: Props) {
                   <div
                     onClick={() => {
                       signOut(auth).then(() => {
-                        setUser(undefined);
+                        dispatch(setIsActive({ status: false}))
                       });
                     }}
                   >
@@ -223,7 +225,7 @@ export default function Navigation({ activeLink }: Props) {
           </Navbar.Content>
         )}
       </Navbar>
-      <Login visible={visible} setVisible={setVisible} setUser={setUser} />
+      <Login visible={visible} setVisible={setVisible} />
     </>
   );
 }

@@ -27,7 +27,6 @@ export default function Details() {
   const [film, setFilm] = useState<Film>();
   const { id } = router.query as unknown as RouterQuery;
   useEffect(() => {
-    console.log(id);
     const url = new URL(
       "https://64055d32eed195a99f80eece.mockapi.io/api/films/films"
     );

@@ -3,6 +3,8 @@
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+import { getAuth } from "firebase/auth";
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const firebaseConfig = {
@@ -14,6 +16,7 @@ export const firebaseConfig = {
   appId: "1:882970456478:web:7f66d02cc53b86f5d3e68f",
   measurementId: "G-ZBYNYQH53C"
 };
+
 
 
 
