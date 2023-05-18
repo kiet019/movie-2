@@ -45,7 +45,6 @@ export default function Details() {
       .then((tasks) => {
         // mockapi returns only tasks that match `hello` string
         setFilm(tasks[0]);
-        console.log(tasks[0]);
       })
       .catch((error) => {
         // handle error

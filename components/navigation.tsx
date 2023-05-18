@@ -1,17 +1,26 @@
 import { MdMovieFilter } from "react-icons/md";
 import { BiSearchAlt2 } from "react-icons/bi";
-import { Navbar, Button, Link, Input, Dropdown, Text, Avatar } from "@nextui-org/react";
+import {
+  Navbar,
+  Button,
+  Link,
+  Input,
+  Dropdown,
+  Text,
+  Avatar,
+} from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
+  GoogleAuthProvider,
+  UserCredential,
+  UserInfo,
+  UserProfile,
   getAuth,
   signInWithPopup,
-  GoogleAuthProvider,
   signOut,
 } from "firebase/auth";
 
-const ggProvider = new GoogleAuthProvider();
-const auth = getAuth();
 interface Item {
   key: string;
   name: string;
@@ -19,8 +28,10 @@ interface Item {
 interface Props {
   activeLink: string;
 }
-
+const ggProvider = new GoogleAuthProvider();
+const auth = getAuth();
 export default function Navigation({ activeLink }: Props) {
+  const [user, setUser] = useState<UserCredential>();
   const items: Item[] = [
     { key: "movies", name: "Movies" },
     { key: "series", name: "Series" },
@@ -39,9 +50,7 @@ export default function Navigation({ activeLink }: Props) {
     const href = "/search?title=" + searchParams;
     router.push(href);
   };
-  useEffect(() => {
-    console.log(auth.currentUser?.photoURL)
-  })
+  useEffect(() => {}, [user]);
   return (
     <Navbar>
       <Navbar.Brand>
@@ -130,16 +139,18 @@ export default function Navigation({ activeLink }: Props) {
       </Navbar.Content>
       {auth.currentUser === null ? (
         <Navbar.Content>
-          <Navbar.Link color="inherit">
-            <div onClick={() => {
-              signInWithPopup(auth, ggProvider)
-            }}>
-              login
-            </div>
-          </Navbar.Link>
           <Navbar.Item>
-            <Button auto flat as={Link}>
-              Sign Up
+            <Button
+              auto
+              flat
+              as={Link}
+              onClick={() => {
+                signInWithPopup(auth, ggProvider).then((result) =>
+                  setUser(result)
+                );
+              }}
+            >
+              Login
             </Button>
           </Navbar.Item>
         </Navbar.Content>
@@ -160,7 +171,11 @@ export default function Navigation({ activeLink }: Props) {
                   as="button"
                   color="secondary"
                   size="md"
-                  src={auth.currentUser.photoURL === null ? "" : auth.currentUser.photoURL}
+                  src={
+                    auth.currentUser.photoURL === null
+                      ? ""
+                      : auth.currentUser.photoURL
+                  }
                   alt=""
                 />
               </Dropdown.Trigger>
@@ -191,9 +206,15 @@ export default function Navigation({ activeLink }: Props) {
                 Help & Feedback
               </Dropdown.Item>
               <Dropdown.Item key="logout" withDivider color="error">
-                <div onClick={() => {
-                  signOut(auth)
-                }}>Log Out</div>
+                <div
+                  onClick={() => {
+                    signOut(auth).then(() => {
+                      setUser(undefined);
+                    });
+                  }}
+                >
+                  Log Out
+                </div>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
