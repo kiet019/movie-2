@@ -2,9 +2,9 @@ import { Button, Card, Grid, Spacer, Text } from "@nextui-org/react";
 import Layout from "../components/layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { AiOutlineUnorderedList } from "../node_modules/react-icons/ai";
-import { MdOutlineFavorite } from "../node_modules/react-icons/md";
-import { MdHd } from "../node_modules/react-icons/md";
+import { AiOutlineUnorderedList } from "../../node_modules/react-icons/ai";
+import { MdOutlineFavorite } from "../../node_modules/react-icons/md";
+import { MdHd } from "../../node_modules/react-icons/md";
 interface Film {
   image: string;
   title: string;
