@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 interface banner {
@@ -20,7 +21,7 @@ export default function Banner({ banners }: Props) {
   return (
     <div>
       <div className="banner">
-        <img src={banners[index].image} className="banner-image" alt="Banner" />
+        <Image src={banners[index].image} className="banner-image" alt="Banner" />
       </div>
     </div>
   );

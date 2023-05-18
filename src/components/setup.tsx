@@ -31,6 +31,6 @@ export default function Setup({ children }: Props) {
     return () => {
       unSubscribe();
     };
-  }, [userStatus]);
+  }, [userStatus, auth, dispatch]);
   return <div>{children}</div>;
 }

@@ -3,10 +3,10 @@ import React from "react";
 import Layout from "../components/layout";
 
 export default function favor() {
-    const router = useRouter()
+  const router = useRouter();
   return (
     <Layout activeLink="">
-        <div
+      <div
         onClick={() => {
           router.push("/");
         }}

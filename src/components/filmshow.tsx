@@ -59,7 +59,7 @@ export default function Filmshow({ type, number, header, title }: Props) {
       .catch((error) => {
         // handle error
       });
-  }, [type, title, page]);
+  }, [type, title, page, number]);
   return (
     <div className="films-list">
       {films.length !== 0 && (type !== undefined || title !== undefined) ? (
