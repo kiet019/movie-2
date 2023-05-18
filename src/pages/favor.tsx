@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
 
-export default function favor() {
+export default function Favor() {
   const router = useRouter();
   return (
     <Layout activeLink="">
