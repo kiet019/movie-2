@@ -4,7 +4,7 @@ import { setData } from "../features/favorlist";
 import { useAppDispatch } from "../features/hook";
 import { useAppSelector } from "../features/hook";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { setIsActive } from "../features/usercode";
+import { setIsActive } from "../features/userstatus";
 
 interface Props {
   children: ReactNode;

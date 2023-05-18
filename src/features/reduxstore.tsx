@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import favorReducer from "./favorlist"
-import userStatus from "./usercode"
+import userStatus from "./userstatus"
 // ...
 
 export const store = configureStore({

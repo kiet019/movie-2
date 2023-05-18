@@ -20,7 +20,7 @@ import {
 } from "firebase/auth";
 import Login from "./login";
 import { useAppDispatch, useAppSelector } from "../features/hook";
-import { setIsActive } from "../features/usercode";
+import { setIsActive } from "../features/userstatus";
 
 interface Item {
   key: string;
