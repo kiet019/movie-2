@@ -12,16 +12,12 @@ import {
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
-  GoogleAuthProvider,
-  UserCredential,
-  getAuth,
-  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import Login from "./login";
 import { useAppDispatch, useAppSelector } from "../features/hook";
 import { setIsActive } from "../features/userstatus";
-
+import { auth } from "../../firebase/firebaseConfig"
 interface Item {
   key: string;
   name: string;
@@ -29,9 +25,8 @@ interface Item {
 interface Props {
   activeLink: string;
 }
-const auth = getAuth();
+
 export default function Navigation({ activeLink }: Props) {
-  const userStatus = useAppSelector((state) => state.userStatus.status)
   const dispatch = useAppDispatch();
   const [visible, setVisible] = useState(false);
   const items: Item[] = [
@@ -214,7 +209,8 @@ export default function Navigation({ activeLink }: Props) {
                     onClick={() => {
                       signOut(auth).then(() => {
                         dispatch(setIsActive({ status: false}))
-                        router.push("/")
+                        router.reload()
+                        
                       });
                     }}
                   >

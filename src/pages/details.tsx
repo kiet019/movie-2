@@ -1,10 +1,21 @@
-import { Button, Card, Grid, Spacer, Text } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  Grid,
+  Modal,
+  Spacer,
+  Text,
+  Textarea,
+} from "@nextui-org/react";
 import Layout from "../components/layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineUnorderedList } from "../../node_modules/react-icons/ai";
 import { MdOutlineFavorite } from "../../node_modules/react-icons/md";
 import { MdHd } from "../../node_modules/react-icons/md";
+import { useAppDispatch, useAppSelector } from "../features/hook";
+import { insert } from "../features/favorlist";
+import { GrStatusGood } from "../../node_modules/react-icons/gr";
 interface Film {
   image: string;
   title: string;
@@ -26,6 +37,14 @@ export default function Details() {
   const router = useRouter();
   const [film, setFilm] = useState<Film>();
   const { id } = router.query as unknown as RouterQuery;
+  const dispatch = useAppDispatch();
+  const [visible, setVisible] = useState(false);
+  const handler = () => setVisible(true);
+
+  const closeHandler = () => {
+    setVisible(false);
+    console.log("closed");
+  };
   useEffect(() => {
     const url = new URL(
       "https://64055d32eed195a99f80eece.mockapi.io/api/films/films"
@@ -67,7 +86,13 @@ export default function Details() {
               </button>
             </Grid>
             <Grid xs={4}>
-              <button className="button-video">
+              <button
+                className="button-video"
+                onClick={() => {
+                  setVisible(true);
+                  dispatch(insert(film.id));
+                }}
+              >
                 <MdOutlineFavorite />
                 Favor
               </button>
@@ -81,7 +106,7 @@ export default function Details() {
           </Grid.Container>
           <div className="detail-main">
             <div className="detail-image">
-              <img src={film.image} alt=""/>
+              <img src={film.image} alt="" />
             </div>
             <div>
               <Text size="2.5rem" css={{ marginBottom: "1rem" }} weight="bold">
@@ -96,6 +121,17 @@ export default function Details() {
           </div>
         </Card>
       ) : null}
+      <Modal
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+        noPadding
+      >
+        <div className="notification">
+          <div>Adding success</div>
+          <GrStatusGood />
+        </div>
+      </Modal>
     </Layout>
   );
 }

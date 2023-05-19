@@ -3,22 +3,19 @@ import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
 import { AiOutlineMail } from "../../node_modules/react-icons/ai";
 import { RiLockPasswordLine } from "../../node_modules/react-icons/ri";
 import {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
-  getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
 import { FcGoogle } from "../../node_modules/react-icons/fc";
 import { useAppDispatch } from "../features/hook";
-import { setIsActive } from "../features/userstatus";
+import { auth, ggProvider } from "../../firebase/firebaseConfig"
 
 interface Props {
   visible: boolean;
   setVisible: React.Dispatch<SetStateAction<boolean>>;
 }
-const ggProvider = new GoogleAuthProvider();
-const auth = getAuth();
+
 export default function Login({ visible, setVisible }: Props) {
   const dispatch = useAppDispatch();
   const [username, setUsername] = useState("");
@@ -55,6 +52,7 @@ export default function Login({ visible, setVisible }: Props) {
         aria-labelledby="modal-title"
         open={visible}
         onClose={closeHandler}
+        blur
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>

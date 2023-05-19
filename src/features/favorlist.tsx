@@ -1,48 +1,62 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./reduxstore";
 
-interface Film {
-  id: string;
-}
 interface FavorFilmList {
   userID: string;
   id: string;
-  filmList: Film[];
+  filmList: string[];
 }
+const initialState = {
+  userID: "",
+  id: "",
+  filmList: [],
+} as FavorFilmList;
+const url = new URL(
+  "https://64055d32eed195a99f80eece.mockapi.io/api/films/favor"
+);
 
 export const favorFilmListSlice = createSlice({
   name: "favorFilmList",
-  initialState: {},
+  initialState,
   reducers: {
     setData: (state, action: PayloadAction<FavorFilmList>) => {
-      return action.payload
-    }
-    // save: (state) => {
-    //   fetch(
-    //     "https://64055d32eed195a99f80eece.mockapi.io/api/films/favor/" +
-    //       state[0].id,
-    //     {
-    //       method: "PUT",
-    //       headers: { "content-type": "application/json" },
-    //       body: JSON.stringify(state[0]),
-    //     }
-    //   )
-    //     .then((res) => {
-    //       if (res.ok) {
-    //         return res.json();
-    //       }
-    //       // handle error
-    //     })
-    //     .then((tasks) => {
-    //       // Do something with the list of tasks
-    //     })
-    //     .catch((error) => {
-    //       // handle error
-    //     });
-    // },
-    // insert: (state, action: PayloadAction<Film>) => {
-    //   state[0].filmList.push(action.payload);
-    // },
+      return action.payload;
+    },
+    clear: (state) => {
+      return initialState;
+    },
+    insert: (state, action: PayloadAction<string>) => {
+      if (
+        state.filmList.find((film) => film === action.payload) === undefined
+      ) {
+        state.filmList.push(action.payload);
+      }
+    },
+    save: (state, action: PayloadAction<string>) => {
+      fetch(
+        "https://64055d32eed195a99f80eece.mockapi.io/api/films/favor/" +
+          action.payload,
+        {
+          method: "PUT", // or PATCH
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(state),
+        }
+      ).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        // handle error
+      });
+    },
+    create: (state, action: PayloadAction<string | undefined>) => {
+      if (action.payload !== undefined) {
+        fetch("https://64055d32eed195a99f80eece.mockapi.io/api/films/favor/", {
+          method: "POST", // or PATCH
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ userID: action.payload }),
+        })
+      }
+    },
     // remove: (state, action: PayloadAction<Film>) => {
     //   state[0].filmList = state[0].filmList.filter((film) => {
     //     film.id !== action.payload.id;
@@ -50,6 +64,7 @@ export const favorFilmListSlice = createSlice({
     // },
   },
 });
-export const { setData } = favorFilmListSlice.actions;
+export const { setData, insert, save, create, clear } =
+  favorFilmListSlice.actions;
 export const selectFavorFilm = (state: RootState) => state.favorFilmList;
 export default favorFilmListSlice.reducer;
