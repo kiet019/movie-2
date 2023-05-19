@@ -14,14 +14,11 @@ import { useRouter } from "next/router";
 import {
   signOut,
 } from "firebase/auth";
-import Login from "./login";
-import { useAppDispatch, useAppSelector } from "../features/hook";
-import { setIsActive } from "../features/userstatus";
-import { auth } from "../../firebase/firebaseConfig"
-interface Item {
-  key: string;
-  name: string;
-}
+import Login from "./LoginPopup";
+import { useAppDispatch, useAppSelector } from "../features/Hooks";
+import { setIsActive } from "../features/UserStatus";
+import { auth } from "../../config/firebaseConfig"
+import { NavItem } from "@/config/interface";
 interface Props {
   activeLink: string;
 }
@@ -29,7 +26,7 @@ interface Props {
 export default function Navigation({ activeLink }: Props) {
   const dispatch = useAppDispatch();
   const [visible, setVisible] = useState(false);
-  const items: Item[] = [
+  const items: NavItem[] = [
     { key: "movies", name: "Movies" },
     { key: "series", name: "Series" },
   ];
@@ -133,7 +130,7 @@ export default function Navigation({ activeLink }: Props) {
                   dflex: "center",
                 },
               }}
-              labelPlaceholder="Search"
+              placeholder="Search"
               onChange={(e) => {
                 setSearchParams(e.target.value);
               }}

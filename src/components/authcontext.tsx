@@ -1,10 +1,10 @@
 import React, { ReactNode, useState } from "react";
 import { useEffect } from "react";
-import { useAppDispatch } from "../features/hook";
-import { useAppSelector } from "../features/hook";
+import { useAppDispatch } from "../features/Hooks";
+import { useAppSelector } from "../features/Hooks";
 import { onAuthStateChanged } from "firebase/auth";
-import { setIsActive } from "../features/userstatus";
-import { auth } from "../../firebase/firebaseConfig"
+import { setIsActive } from "../features/UserStatus";
+import { auth } from "../../config/firebaseConfig"
 interface Props {
   children: ReactNode;
 }

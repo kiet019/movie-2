@@ -1,14 +1,13 @@
-import React, { ReactNode, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../features/hook";
-import { clear, create, setData } from "../features/favorlist";
-import { auth } from "@/firebase/firebaseConfig";
+import React, { ReactNode, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../features/Hooks";
+import { create, setData } from "../features/FavorList";
+import { auth } from "@/config/firebaseConfig";
 import { useRouter } from "next/router";
 interface Props {
   children: ReactNode;
 }
 
 export default function Favorcontext({ children }: Props) {
-  const favorFilmList = useAppSelector((state) => state.favorFilmList);
   const userStatus = useAppSelector((state) => state.userStatus.status);
   const dispatch = useAppDispatch();
   const router = useRouter()

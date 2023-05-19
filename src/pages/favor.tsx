@@ -1,24 +1,12 @@
 import { useRouter } from "next/router";
-import Layout from "../components/layout";
-import { useAppDispatch, useAppSelector } from "../features/hook";
+import Layout from "../components/Layout";
+import { useAppDispatch, useAppSelector } from "../features/Hooks";
 import { Button, Text } from "@nextui-org/react";
-import { save } from "../features/favorlist";
-import { auth } from "@/firebase/firebaseConfig";
+import { save } from "../features/FavorList";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { Film } from "@/config/interface";
 
-interface Film {
-  image: string;
-  title: string;
-  year: number;
-  director: string;
-  time: number;
-  trailer: string;
-  resolution: string;
-  information: string;
-  id: string;
-  type: string;
-}
+
 
 export default function Favor() {
   const router = useRouter();

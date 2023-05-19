@@ -1,13 +1,13 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 import Head from "next/head";
-import Navigation from "./navigation";
+import Navigation from "./Navigation";
 
-interface LayoutProps {
+interface Props {
   children: ReactNode;
   activeLink: string;
 }
 
-export default function Layout({ children, activeLink }: LayoutProps) {
+export default function Layout({ children, activeLink }: Props) {
   return (
       <div className="container">
         <Head>

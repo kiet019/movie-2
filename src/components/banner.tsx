@@ -1,8 +1,6 @@
+import { banner } from "@/config/interface";
 import React, { useEffect, useState } from "react";
 
-interface banner {
-  image: string;
-}
 interface Props {
   banners: banner[];
 }

@@ -1,11 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "./reduxstore";
+import { RootState } from "./ReduxStore";
+import { FavorFilmList } from "@/config/interface";
 
-interface FavorFilmList {
-  userID: string;
-  id: string;
-  filmList: string[];
-}
 const initialState = {
   userID: "",
   id: "",

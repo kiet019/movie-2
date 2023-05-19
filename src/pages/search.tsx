@@ -1,12 +1,10 @@
-import Filmshow from "../components/filmshow";
+import Filmshow from "../components/FilmShow";
 import { useRouter } from "next/router";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import { Loading } from "@nextui-org/react";
-import { useEffect, useState } from "react";
-interface RouterQuery {
-  type: string;
-  title: string;
-}
+import { useEffect } from "react";
+import { RouterQuery } from "@/config/interface";
+
 
 export default function Type() {
   const router = useRouter();

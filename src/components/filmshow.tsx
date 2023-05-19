@@ -1,3 +1,4 @@
+import { Film } from "@/config/interface";
 import {
   Grid,
   Card,
@@ -8,20 +9,7 @@ import {
   Pagination,
 } from "@nextui-org/react";
 import { useRouter } from "next/router";
-
 import { useEffect, useState } from "react";
-interface Film {
-  image: string;
-  title: string;
-  year: number;
-  director: string;
-  time: number;
-  trailer: string;
-  resolution: string;
-  information: string;
-  id: string;
-  type: string;
-}
 
 interface Props {
   type: string;
@@ -68,52 +56,51 @@ export default function Filmshow({ type, number, header, title }: Props) {
             {header}
           </Text>
           <Grid.Container gap={3}>
-            {films
-              .map((film) => {
-                return (
-                  <Grid xs={12} sm={4} key={film.id}>
-                    <Card
-                      css={{ height: "24rem" }}
-                      isPressable
-                      isHoverable
-                      onClick={() => {
-                        router.push("/details?id=" + film.id);
+            {films.map((film) => {
+              return (
+                <Grid xs={12} sm={4} key={film.id}>
+                  <Card
+                    css={{ height: "24rem" }}
+                    isPressable
+                    isHoverable
+                    onClick={() => {
+                      router.push("/details?id=" + film.id);
+                    }}
+                  >
+                    <Card.Header
+                      css={{ position: "absolute", zIndex: 1, top: 5 }}
+                    ></Card.Header>
+                    <Card.Body css={{ p: 0 }}>
+                      <Card.Image
+                        src={film.image}
+                        width="100%"
+                        height="100%"
+                        objectFit="cover"
+                        alt="Card example background"
+                      />
+                    </Card.Body>
+                    <Card.Footer
+                      isBlurred
+                      css={{
+                        position: "absolute",
+                        bgBlur: "#ffffff66",
+                        borderTop:
+                          "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
+                        bottom: 0,
+                        zIndex: 1,
+                        height: "7rem",
                       }}
                     >
-                      <Card.Header
-                        css={{ position: "absolute", zIndex: 1, top: 5 }}
-                      ></Card.Header>
-                      <Card.Body css={{ p: 0 }}>
-                        <Card.Image
-                          src={film.image}
-                          width="100%"
-                          height="100%"
-                          objectFit="cover"
-                          alt="Card example background"
-                        />
-                      </Card.Body>
-                      <Card.Footer
-                        isBlurred
-                        css={{
-                          position: "absolute",
-                          bgBlur: "#ffffff66",
-                          borderTop:
-                            "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
-                          bottom: 0,
-                          zIndex: 1,
-                          height: "7rem",
-                        }}
-                      >
-                        <Col>
-                          <Text h3 color="black">
-                            {film.title}
-                          </Text>
-                        </Col>
-                      </Card.Footer>
-                    </Card>
-                  </Grid>
-                );
-              })}
+                      <Col>
+                        <Text h3 color="black">
+                          {film.title}
+                        </Text>
+                      </Col>
+                    </Card.Footer>
+                  </Card>
+                </Grid>
+              );
+            })}
           </Grid.Container>
           <Pagination
             total={films.length / number + 1}

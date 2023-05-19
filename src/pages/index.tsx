@@ -1,9 +1,8 @@
-import Banner from "../components/banner";
-import Filmshow from "../components/filmshow";
-import Layout from "../components/layout";
-interface banner {
-  image: string;
-}
+import { banner } from "@/config/interface";
+import Banner from "../components/Banner";
+import Filmshow from "../components/FilmShow";
+import Layout from "../components/Layout";
+
 interface Props {
   banners: banner[];
 }

@@ -1,15 +1,15 @@
 import React, { SetStateAction, useEffect, useState } from "react";
 import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
-import { AiOutlineMail } from "../../node_modules/react-icons/ai";
-import { RiLockPasswordLine } from "../../node_modules/react-icons/ri";
+import { AiOutlineMail } from "react-icons/ai";
+import { RiLockPasswordLine } from "react-icons/ri";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { FcGoogle } from "../../node_modules/react-icons/fc";
-import { useAppDispatch } from "../features/hook";
-import { auth, ggProvider } from "../../firebase/firebaseConfig"
+import { FcGoogle } from "react-icons/fc";
+import { useAppDispatch } from "../features/Hooks";
+import { auth, ggProvider } from "../../config/firebaseConfig"
 
 interface Props {
   visible: boolean;

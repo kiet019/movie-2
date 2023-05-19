@@ -1,34 +1,19 @@
 import {
-  Button,
   Card,
   Grid,
   Modal,
-  Spacer,
   Text,
-  Textarea,
 } from "@nextui-org/react";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineUnorderedList } from "../../node_modules/react-icons/ai";
 import { MdOutlineFavorite } from "../../node_modules/react-icons/md";
 import { MdHd } from "../../node_modules/react-icons/md";
-import { useAppDispatch, useAppSelector } from "../features/hook";
-import { insert } from "../features/favorlist";
+import { useAppDispatch, useAppSelector } from "../features/Hooks";
+import { insert } from "../features/FavorList";
 import { GrStatusGood } from "../../node_modules/react-icons/gr";
-interface Film {
-  image: string;
-  title: string;
-  year: number;
-  director: string;
-  time: number;
-  trailer: string;
-  resolution: string;
-  information: string;
-  id: string;
-  type: string;
-}
-
+import { Film } from "@/config/interface";
 interface RouterQuery {
   id: string;
 }
@@ -39,7 +24,6 @@ export default function Details() {
   const { id } = router.query as unknown as RouterQuery;
   const dispatch = useAppDispatch();
   const [visible, setVisible] = useState(false);
-  const handler = () => setVisible(true);
 
   const closeHandler = () => {
     setVisible(false);
@@ -58,15 +42,11 @@ export default function Details() {
         if (res.ok) {
           return res.json();
         }
-        // handle error
       })
       .then((tasks) => {
-        // mockapi returns only tasks that match `hello` string
         setFilm(tasks[0]);
       })
-      .catch((error) => {
-        // handle error
-      });
+      .catch((error) => {});
   }, [id]);
   return (
     <Layout activeLink="">
