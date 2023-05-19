@@ -19,7 +19,7 @@ export default function Authcontext({ children }: Props) {
       unSubscribe();
     };
   }, [userStatus]);
-  return <div>{children}h</div>;
+  return <div>{children}</div>;
 }
 
 
