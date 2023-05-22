@@ -1,8 +1,9 @@
 import React, { ReactNode, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../features/Hooks";
-import { create, setData } from "../features/FavorList";
+import { clear, create, setData } from "../features/FavorList";
 import { auth } from "@/config/firebaseConfig";
 import { useRouter } from "next/router";
+import { FavorFilmList } from "@/config/interface";
 interface Props {
   children: ReactNode;
 }
@@ -10,8 +11,8 @@ interface Props {
 export default function Favorcontext({ children }: Props) {
   const userStatus = useAppSelector((state) => state.userStatus.status);
   const dispatch = useAppDispatch();
-  const router = useRouter();
   useEffect(() => {
+    console.log(auth.currentUser?.uid);
     if (auth.currentUser !== null) {
       const url = new URL(
         "https://64055d32eed195a99f80eece.mockapi.io/api/films/favor"
@@ -41,14 +42,19 @@ export default function Favorcontext({ children }: Props) {
       //     // handle error
       //   });
       const getFavorFilm = async () => {
-        const response = await fetch(url, {
-          method: "GET",
-          headers: { "content-type": "application/json" },
-        });
-        const favorFilmList = await response.json()
-        console.log(favorFilmList)
+        try {
+          const response = await fetch(url, {
+            method: "GET",
+            headers: { "content-type": "application/json" },
+          });
+          const data: FavorFilmList[] = await response.json();
+          if (data.length > 0) dispatch(setData(data[0]));
+          else dispatch(create(auth.currentUser?.uid));
+        } catch (error) {}
       };
-      getFavorFilm
+      getFavorFilm();
+    } else {
+      dispatch(clear());
     }
   }, [userStatus]);
   return <div>{children}</div>;

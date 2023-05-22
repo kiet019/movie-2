@@ -11,13 +11,11 @@ import {
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import {
-  signOut,
-} from "firebase/auth";
+import { signOut } from "firebase/auth";
 import Login from "./LoginPopup";
 import { useAppDispatch, useAppSelector } from "../features/Hooks";
 import { setIsActive } from "../features/UserStatus";
-import { auth } from "../../config/firebaseConfig"
+import { auth } from "../../config/firebaseConfig";
 import { NavItem } from "@/config/interface";
 interface Props {
   activeLink: string;
@@ -44,7 +42,8 @@ export default function Navigation({ activeLink }: Props) {
     const href = "/search?title=" + searchParams;
     router.push(href);
   };
-
+  const userStatus = useAppSelector((state) => state.userStatus.status);
+  useEffect(() => {}, [userStatus]);
   return (
     <>
       <Navbar>
@@ -194,9 +193,13 @@ export default function Navigation({ activeLink }: Props) {
                   </Text>
                 </Dropdown.Item>
                 <Dropdown.Item key="settings" withDivider>
-                  <div onClick={() => {
-                    router.push("/favor")
-                  }}>Favorite List</div>
+                  <div
+                    onClick={() => {
+                      router.push("/favor");
+                    }}
+                  >
+                    Favorite List
+                  </div>
                 </Dropdown.Item>
                 <Dropdown.Item key="help_and_feedback" withDivider>
                   Help & Feedback
@@ -205,9 +208,7 @@ export default function Navigation({ activeLink }: Props) {
                   <div
                     onClick={() => {
                       signOut(auth).then(() => {
-                        dispatch(setIsActive({ status: false}))
-                        router.reload()
-                        
+                        dispatch(setIsActive({ status: false }));
                       });
                     }}
                   >

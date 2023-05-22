@@ -8,7 +8,7 @@ const initialState = {
   filmList: [],
 } as FavorFilmList;
 const url = new URL(
-  "https://64055d32eed195a99f80eece.mockapi.io/api/films/favor"
+  "https://64055d32eed195a99f80eece.mockapi.io/api/films/favor/"
 );
 
 export const favorFilmListSlice = createSlice({
@@ -29,24 +29,20 @@ export const favorFilmListSlice = createSlice({
       }
     },
     save: (state, action: PayloadAction<string>) => {
+      console.log(JSON.stringify(state))
       fetch(
-        "https://64055d32eed195a99f80eece.mockapi.io/api/films/favor/" +
+        url +
           action.payload,
         {
           method: "PUT", // or PATCH
           headers: { "content-type": "application/json" },
           body: JSON.stringify(state),
         }
-      ).then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        // handle error
-      });
+      )
     },
     create: (state, action: PayloadAction<string | undefined>) => {
       if (action.payload !== undefined) {
-        fetch("https://64055d32eed195a99f80eece.mockapi.io/api/films/favor/", {
+        fetch(url, {
           method: "POST", // or PATCH
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ userID: action.payload }),
