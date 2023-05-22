@@ -1,5 +1,16 @@
 import React, { SetStateAction, useEffect, useState } from "react";
-import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
+import {
+  InputAdornment,
+  OutlinedInput,
+  Typography,
+  Checkbox,
+  Button,
+  FilledInput,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import {
@@ -8,8 +19,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
-import { useAppDispatch } from "../features/Hooks";
-import { auth, ggProvider } from "../../config/firebaseConfig"
+import { auth, ggProvider } from "../../config/firebaseConfig";
 
 interface Props {
   visible: boolean;
@@ -25,150 +35,160 @@ export default function Login({ visible, setVisible }: Props) {
     setVisible(false);
   };
   const handleLogin = () => {
-    signInWithEmailAndPassword(auth, username, password).then((result) => {
-      setVisible(false)
-    }).catch((error) => {
-      setError(error.message);
-    });
-    
+    signInWithEmailAndPassword(auth, username, password)
+      .then((result) => {
+        setVisible(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
   const handleRegister = () => {
-    createUserWithEmailAndPassword(auth, username, password).then((result) => {
-      setVisible(false)
-    }).catch((error) => {
-      setError(error.message);
-    });
+    createUserWithEmailAndPassword(auth, username, password)
+      .then((result) => {
+        setVisible(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
   useEffect(() => {
-    setError("")
-    setUsername("")
-    setPassword("")
+    setError("");
+    setUsername("");
+    setPassword("");
   }, [sign]);
   return (
-    <div>
-      <Modal
-        closeButton
-        aria-labelledby="modal-title"
-        open={visible}
-        onClose={closeHandler}
-        blur
-      >
-        <Modal.Header>
-          <Text id="modal-title" size={18}>
-            Welcome to_
-            <Text b size={18}>
-              Movie
-            </Text>
-          </Text>
-        </Modal.Header>
-        <Modal.Body>
-          {sign === false ? (
-            <>
-              <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder="Email"
-                contentLeft={<AiOutlineMail />}
-                value={username}
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-              />
-              <Input.Password
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder="Password"
-                contentLeft={<RiLockPasswordLine />}
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-              <Row justify="space-between">
-                <Checkbox>
-                  <Text size={14}>Remember me</Text>
-                </Checkbox>
-                <Text size={14}>Forgot password?</Text>
-              </Row>
-            </>
-          ) : (
-            <>
-              <Text h3>Register</Text>
-              <Input
-                placeholder="Email"
-                contentRight={<AiOutlineMail />}
-                value={username}
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-              />
-              <Input.Password
-                placeholder="Password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </>
-          )}
-          {error === "" ? null : <Text color="error">{error}</Text>}
-          <Button
-            color="warning"
-            auto
-            onPress={() => {
-              signInWithPopup(auth, ggProvider).then((result) => {
-                setVisible(false);
-              }).catch((error) => {
-                setError(error.message)
+    <Dialog
+      aria-labelledby="child-modal-title"
+      aria-describedby="child-modal-description"
+      open={visible}
+      onClose={closeHandler}
+      fullWidth
+      maxWidth="xs"
+    >
+      <DialogTitle>
+        <Typography variant="h5">Welcome to Movie-app</Typography>
+      </DialogTitle>
+      <DialogContent>
+        {sign === false ? (
+          <>
+            <OutlinedInput
+              id="outlined-adornment-weight"
+              className="input-login"
+              startAdornment={
+                <InputAdornment position="start">
+                  <AiOutlineMail />
+                </InputAdornment>
               }
-              );
-            }}
-          >
-            <FcGoogle style={{ fontSize: "1.5rem", marginRight: "1rem" }} />{" "}
-            Login with google
-          </Button>
-        </Modal.Body>
-        <Modal.Footer>
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
+            <br />
+            <OutlinedInput
+              id="outlined-adornment-weight"
+              className="input-login"
+              startAdornment={
+                <InputAdornment position="start">
+                  <RiLockPasswordLine />
+                </InputAdornment>
+              }
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <div
+              style={{
+                justifyContent: "space-between",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Checkbox />
+                <Typography>Remember me</Typography>
+              </div>
+              <Typography>Forgot password</Typography>
+            </div>
+          </>
+        ) : (
+          <>
+            <Typography variant="h5">Register</Typography>
+            <FilledInput
+              placeholder="Email"
+              endAdornment={<AiOutlineMail />}
+              value={username}
+              className="input-password"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
+            <br />
+            <FilledInput
+              placeholder="Password"
+              endAdornment={<RiLockPasswordLine />}
+              value={password}
+              className="input-password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <br />
+          </>
+        )}
+        {error === "" ? null : <Typography color="red">{error}</Typography>}
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "#F5A524" }}
+          onClick={() => {
+            signInWithPopup(auth, ggProvider)
+              .then((result) => {
+                setVisible(false);
+              })
+              .catch((error) => {
+                setError(error.message);
+              });
+          }}
+          fullWidth
+        >
+          <FcGoogle style={{ fontSize: "1.5rem", marginRight: "1rem" }} />
+          Login with google
+        </Button>
+      </DialogContent>
+      <DialogTitle>
+        <div style={{ float: "right" }}>
           {sign === false ? (
             <>
               <Button
-                color="primary"
-                light
-                auto
-                onPress={() => {
+                onClick={() => {
                   setSign(true);
                 }}
               >
                 Register
               </Button>
-              <Button auto onPress={handleLogin}>
+              <Button variant="contained" onClick={handleLogin}>
                 Login
               </Button>
             </>
           ) : (
             <>
               <Button
-                color="primary"
-                light
-                auto
-                onPress={() => {
+                onClick={() => {
                   setSign(false);
                 }}
               >
                 Login
               </Button>
-              <Button auto onPress={handleRegister}>
+              <Button variant="contained" onClick={handleRegister}>
                 Register
               </Button>
             </>
           )}
-        </Modal.Footer>
-      </Modal>
-    </div>
+        </div>
+      </DialogTitle>
+    </Dialog>
   );
 }
