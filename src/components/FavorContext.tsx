@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../features/Hooks";
 import { clear, create, setData } from "../features/FavorList";
 import { auth } from "@/config/firebaseConfig";
 import { FavorFilmList } from "@/config/interface";
+import { useRouter } from "next/router";
 interface Props {
   children: ReactNode;
 }
@@ -10,7 +11,7 @@ interface Props {
 export default function Favorcontext({ children }: Props) {
   const userStatus = useAppSelector((state) => state.userStatus.status);
   const dispatch = useAppDispatch();
-  const [update, setUpdate] = useState<number>(0);
+  const router = useRouter()
   useEffect(() => {
     console.log(auth.currentUser?.uid);
     if (auth.currentUser !== null) {
@@ -29,7 +30,7 @@ export default function Favorcontext({ children }: Props) {
           if (data.length > 0) dispatch(setData(data[0]));
           else {
             dispatch(create(auth.currentUser?.uid));
-            setUpdate(update+1)
+            router.reload()
           }
         } catch (error) {}
       };
@@ -37,6 +38,6 @@ export default function Favorcontext({ children }: Props) {
     } else {
       dispatch(clear());
     }
-  }, [userStatus, update]);
+  }, [userStatus]);
   return <div>{children}</div>;
 }
