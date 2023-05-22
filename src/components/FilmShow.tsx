@@ -48,8 +48,8 @@ export default function Filmshow({ type, number, header, title }: Props) {
           <Grid container spacing={2}>
             {films.map((film) => {
               return (
-                <Grid xs={6} sm={6} md={4}>
-                  <FilmCard film={film} key={film.id}/>
+                <Grid xs={6} sm={6} md={4} key={film.id}>
+                  <FilmCard film={film}/>
                 </Grid>
               );
             })}
