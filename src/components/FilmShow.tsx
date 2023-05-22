@@ -55,7 +55,7 @@ export default function Filmshow({ type, number, header, title }: Props) {
             })}
           </Grid>
           <Pagination
-            count={films.length / number + 1}
+            count={Math.floor(films.length / number) + 1}
             page={page}
             onChange={(event, page) => {
               setPage(page);

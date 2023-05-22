@@ -25,7 +25,7 @@ export default function News() {
     getData();
   }, []);
   return (
-    <Layout activeLink="News">
+    <Layout >
       <div></div>
     </Layout>
   );

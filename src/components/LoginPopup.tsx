@@ -9,7 +9,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
 } from "@mui/material";
 import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -67,13 +66,12 @@ export default function Login({ visible, setVisible }: Props) {
       maxWidth="xs"
     >
       <DialogTitle>
-        <Typography variant="h5">Welcome to Movie-app</Typography>
+        Welcome to Movie-app
       </DialogTitle>
       <DialogContent>
         {sign === false ? (
           <>
             <OutlinedInput
-              id="outlined-adornment-weight"
               className="input-login"
               startAdornment={
                 <InputAdornment position="start">
@@ -87,7 +85,6 @@ export default function Login({ visible, setVisible }: Props) {
             />
             <br />
             <OutlinedInput
-              id="outlined-adornment-weight"
               className="input-login"
               startAdornment={
                 <InputAdornment position="start">

@@ -4,16 +4,15 @@ import Navigation from "./Navigation";
 
 interface Props {
   children: ReactNode;
-  activeLink: string;
 }
 
-export default function Layout({ children, activeLink }: Props) {
+export default function Layout({ children }: Props) {
   return (
-      <div className="container">
+      <div className="layout-container">
         <Head>
           <title>Movie App</title>
         </Head>
-        <Navigation activeLink={activeLink} />
+        <Navigation />
         <div className="user">{children}</div>
       </div>
   );

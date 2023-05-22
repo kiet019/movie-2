@@ -1,14 +1,14 @@
-import { Card, Grid, Modal, Text } from "@nextui-org/react";
 import Layout from "../components/Layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineUnorderedList } from "../../node_modules/react-icons/ai";
 import { MdOutlineFavorite } from "../../node_modules/react-icons/md";
 import { MdHd } from "../../node_modules/react-icons/md";
-import { useAppDispatch, useAppSelector } from "../features/Hooks";
+import { useAppDispatch } from "../features/Hooks";
 import { insert } from "../features/FavorList";
 import { GrStatusGood } from "../../node_modules/react-icons/gr";
 import { Film } from "@/config/interface";
+import { Button, Dialog, Grid, Card, CardMedia, Typography } from "@mui/material";
 interface RouterQuery {
   id: string;
 }
@@ -29,35 +29,37 @@ export default function Details() {
       "https://64055d32eed195a99f80eece.mockapi.io/api/films/films"
     );
     router.query.id !== undefined ? url.searchParams.append("id", id) : null;
-    const getData= async () => {
+    const getData = async () => {
       const response = await fetch(url, {
         method: "GET",
         headers: { "content-type": "application/json" },
       });
-     const data : Film[]= await response.json();
-     setFilm(data[0])
+      const data: Film[] = await response.json();
+      setFilm(data[0]);
     };
     getData();
   }, [id]);
   return (
-    <Layout activeLink="">
+    <Layout>
       {film !== undefined ? (
-        <Card variant="bordered">
+        <Card>
           <iframe
             src={film.trailer}
             title="YouTube video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
+            width="100%"
           ></iframe>
-          <Grid.Container gap={0.2} css={{ height: "3vw" }}>
+          <Grid container gap={0}>
             <Grid xs={4}>
-              <button className="button-video">
+              <Button className="button-video" variant="contained">
                 <AiOutlineUnorderedList />
                 List
-              </button>
+              </Button>
             </Grid>
             <Grid xs={4}>
-              <button
+              <Button
+                variant="contained"
                 className="button-video"
                 onClick={() => {
                   setVisible(true);
@@ -66,43 +68,43 @@ export default function Details() {
               >
                 <MdOutlineFavorite />
                 Favor
-              </button>
+              </Button>
             </Grid>
             <Grid xs={4}>
-              <button className="button-video">
+              <Button variant="contained" className="button-video">
                 <MdHd />
                 Resolution
-              </button>
+              </Button>
             </Grid>
-          </Grid.Container>
+          </Grid>
           <div className="detail-main">
             <div className="detail-image">
               <img src={film.image} alt="" />
             </div>
             <div>
-              <Text size="2.5rem" css={{ marginBottom: "1rem" }} weight="bold">
+              <Typography style={{ marginBottom: "1rem", fontSize:"2.5rem" }} >
                 {film.title}
-              </Text>
-              <Text size="1.5rem">Year: {film.year}</Text>
-              <Text size="1.5rem">Director: {film.director}</Text>
+              </Typography>
+              <Typography style={{ marginBottom: "1rem", fontSize:"1.5rem" }}>Year: {film.year}</Typography>
+              <Typography style={{ marginBottom: "1rem", fontSize:"1.5rem" }}>Director: {film.director}</Typography>
               <div className="details-information">
-                <Text size="1.2rem">{film.information}</Text>
+                <Typography style={{ marginBottom: "1rem", fontSize:"1.2rem" }}>{film.information}</Typography>
               </div>
             </div>
           </div>
         </Card>
       ) : null}
-      <Modal
-        aria-labelledby="modal-title"
+      <Dialog
         open={visible}
         onClose={closeHandler}
-        noPadding
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
         <div className="notification">
           <div>Adding success</div>
           <GrStatusGood />
         </div>
-      </Modal>
+      </Dialog>
     </Layout>
   );
 }

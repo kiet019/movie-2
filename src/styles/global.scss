@@ -12,19 +12,17 @@ a {
 * {
   box-sizing: border-box;
 }
-path {
-  color: black;
-}
+
 img {
   object-fit: cover;
   object-position: center;
 }
 #__next {
   height: fit-content;
-  .container {
+  .layout-container {
     .banner-image {
       height: 25vw;
-      width: 100vw;
+      width: 100%;;
     }
     .user {
       max-width: 65rem;
@@ -56,11 +54,8 @@ img {
     padding: 0px;
     border: 0px;
     font-size: 1rem;
-    cursor: pointer;
-  }
-  .button-video:hover {
-    box-shadow: 0px 0px 10px black;
-  }
+    height: 2rem; 
+   }
   .detail-main {
     display: grid;
     grid-template-columns: 1.5fr 3fr;
@@ -101,9 +96,7 @@ img {
   align-items: center;
   font-size: 1.7rem;
   color: #13a452;
-  svg {
-    color: #13a452;
-  }
+  padding: 2rem;
 }
 .input-login {
   border-radius: 2rem;

@@ -27,7 +27,8 @@ export default function FilmCard({ film }: Props) {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div" style={{
-          height: "3.5rem"
+          height: "3.5rem",
+          overflow: "hidden"
         }}>
           {film.title} 
         </Typography>

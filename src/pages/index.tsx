@@ -8,7 +8,7 @@ interface Props {
 }
 export default function Home({ banners }: Props) {
   return (
-    <Layout activeLink="">
+    <Layout >
       <Banner banners={banners} />
       <Filmshow type="movie" number={3} header="Movies" title="" />
       <Filmshow type="series" number={3} header="Series" title="" />
