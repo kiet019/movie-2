@@ -30,23 +30,37 @@ export default function Filmshow({ type, number, header, title }: Props) {
     title !== undefined ? url.searchParams.append("title", title) : null;
     url.searchParams.append("page", page.toString());
     url.searchParams.append("limit", number.toString());
-    fetch(url, {
-      method: "GET",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        // handle error
-      })
-      .then((tasks) => {
-        // mockapi returns only tasks that match `hello` string
-        setFilms(tasks);
-      })
-      .catch((error) => {
-        // handle error
-      });
+    // fetch(url, {
+    //   method: "GET",
+    //   headers: { "content-type": "application/json" },
+    // })
+    //   .then((res) => {
+    //     if (res.ok) {
+    //       return res.json();
+    //     }
+    //     // handle error
+    //   })
+    //   .then((tasks) => {
+    //     // mockapi returns only tasks that match `hello` string
+    //     setFilms(tasks);
+    //   })
+    //   .catch((error) => {
+    //     // handle error
+    //   });
+    const getFilms = async () => {
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: { "content-type": "application/json" },
+        });
+        const films = await response.json();
+        setFilms(films);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getFilms();
   }, [type, title, page, number]);
   return (
     <div className="films-list">
