@@ -19,8 +19,8 @@ export default function Favor() {
         method: "GET",
         headers: { "content-type": "application/json" },
       })
-      const favorFilm = await response.json()  
-      setData(favorFilm)
+      const favorFilm = await response.json();
+      setData(favorFilm);
     }
     getFavorFilm();
   }, [favorFilmList.filmList]);
@@ -43,7 +43,7 @@ export default function Favor() {
         )}
       </div>
       <Button
-        onClick={() => {
+        onPress={() => {
           dispatch(save(favorFilmList.id));
         }}
       >

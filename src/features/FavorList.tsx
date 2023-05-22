@@ -42,6 +42,7 @@ export const favorFilmListSlice = createSlice({
     },
     create: (state, action: PayloadAction<string | undefined>) => {
       if (action.payload !== undefined) {
+        console.log(JSON.stringify({ userID: action.payload }))
         fetch(url, {
           method: "POST", // or PATCH
           headers: { "content-type": "application/json" },

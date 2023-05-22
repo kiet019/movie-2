@@ -1,9 +1,4 @@
-import {
-  Card,
-  Grid,
-  Modal,
-  Text,
-} from "@nextui-org/react";
+import { Card, Grid, Modal, Text } from "@nextui-org/react";
 import Layout from "../components/Layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -34,19 +29,28 @@ export default function Details() {
       "https://64055d32eed195a99f80eece.mockapi.io/api/films/films"
     );
     router.query.id !== undefined ? url.searchParams.append("id", id) : null;
-    fetch(url, {
-      method: "GET",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((tasks) => {
-        setFilm(tasks[0]);
-      })
-      .catch((error) => {});
+    // fetch(url, {
+    //   method: "GET",
+    //   headers: { "content-type": "application/json" },
+    // })
+    //   .then((res) => {
+    //     if (res.ok) {
+    //       return res.json();
+    //     }
+    //   })
+    //   .then((tasks) => {
+    //     setFilm(tasks[0]);
+    //   })
+    //   .catch((error) => {});
+    const getFilm = async () => {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: { "content-type": "application/json" },
+      });
+     const data : Film[]= await response.json();
+     setFilm(data[0])
+    };
+    getFilm();
   }, [id]);
   return (
     <Layout activeLink="">
