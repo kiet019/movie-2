@@ -17,7 +17,6 @@ interface Props {
 }
 
 export default function Login({ visible, setVisible }: Props) {
-  const dispatch = useAppDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

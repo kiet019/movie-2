@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./ReduxStore";
-import { user } from "@/config/interface";
+import { User } from "@/config/interface";
 
 export const userStatusSlice = createSlice({
     name: "userStatus",
     initialState: {status: false},
     reducers: {
-        setIsActive: (state, action: PayloadAction<user>) => {
+        setIsActive: (state, action: PayloadAction<User>) => {
             state.status = action.payload.status
         }
     }

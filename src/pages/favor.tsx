@@ -10,19 +10,19 @@ import { Film } from "@/config/interface";
 
 export default function Favor() {
   const router = useRouter();
-  const [data, setData] = useState<Film[]>();
+  const [filmList, setFilmList] = useState<Film[]>();
   const favorFilmList = useAppSelector((state) => state.favorFilmList);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    const getFavorFilm =async () => {
+    const getData =async () => {
       const response = await fetch("https://64055d32eed195a99f80eece.mockapi.io/api/films/films", {
         method: "GET",
         headers: { "content-type": "application/json" },
       })
-      const favorFilm = await response.json();
-      setData(favorFilm);
+      const data = await response.json();
+      setFilmList(data);
     }
-    getFavorFilm();
+    getData();
   }, [favorFilmList.filmList]);
   return (
     <Layout activeLink="">
@@ -30,8 +30,8 @@ export default function Favor() {
         Favorite Films
       </Text>
       <div className="show-favor-film">
-        {data !== undefined ? (
-          data.filter((film) => favorFilmList.filmList.includes(film.id)).map((film) => (
+        {filmList !== undefined ? (
+          filmList.filter((film) => favorFilmList.filmList.includes(film.id)).map((film) => (
             <div key={film.id} className="hover-mouse" onClick={() => {
               router.push("/details?id=" + film.id);
             }}>

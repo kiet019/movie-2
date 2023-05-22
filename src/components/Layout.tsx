@@ -1,7 +1,6 @@
 import React, { ReactNode, useEffect } from "react";
 import Head from "next/head";
 import Navigation from "./Navigation";
-import { useAppSelector } from "../features/Hooks";
 
 interface Props {
   children: ReactNode;

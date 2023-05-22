@@ -19,11 +19,11 @@ export async function getServerSideProps() {
   const response = await fetch(
     "https://64048c453bdc59fa8f3b5897.mockapi.io/api/films/banner"
   );
-  const bannersData: banner[] = await response.json();
+  const data: banner[] = await response.json();
 
   return {
     props: {
-      banners: bannersData,
+      banners: data,
     },
   };
 }

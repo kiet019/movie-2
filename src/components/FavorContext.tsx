@@ -19,7 +19,7 @@ export default function Favorcontext({ children }: Props) {
       );
       url.searchParams.append("userID", auth.currentUser.uid);
  
-      const getFavorFilm = async () => {
+      const getData = async () => {
         try {
           const response = await fetch(url, {
             method: "GET",
@@ -33,7 +33,7 @@ export default function Favorcontext({ children }: Props) {
           }
         } catch (error) {}
       };
-      getFavorFilm();
+      getData();
     } else {
       dispatch(clear());
     }

@@ -96,8 +96,15 @@ export default function Navigation({ activeLink }: Props) {
               </Dropdown.Menu>
             </Dropdown>
           </Navbar.Link>
-          <Navbar.Link isActive={activeLink === "News"} href="#">
-            News
+          <Navbar.Link isActive={activeLink === "News"}>
+            <div
+              onClick={() => {
+                router.push("/news");
+              }}
+              className="hover-mouse"
+            >
+              News
+            </div>
           </Navbar.Link>
           <Navbar.Link isActive={activeLink === "About"} href="#">
             About

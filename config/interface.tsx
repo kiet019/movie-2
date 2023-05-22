@@ -26,6 +26,13 @@ export interface FavorFilmList {
   id: string;
   filmList: string[];
 }
-export interface user{
-  status: boolean
+export interface User {
+  status: boolean;
+}
+export interface News {
+  id: string;
+  img: string;
+  title: string;
+  description: string;
+  by: string;
 }

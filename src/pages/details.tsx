@@ -29,20 +29,7 @@ export default function Details() {
       "https://64055d32eed195a99f80eece.mockapi.io/api/films/films"
     );
     router.query.id !== undefined ? url.searchParams.append("id", id) : null;
-    // fetch(url, {
-    //   method: "GET",
-    //   headers: { "content-type": "application/json" },
-    // })
-    //   .then((res) => {
-    //     if (res.ok) {
-    //       return res.json();
-    //     }
-    //   })
-    //   .then((tasks) => {
-    //     setFilm(tasks[0]);
-    //   })
-    //   .catch((error) => {});
-    const getFilm = async () => {
+    const getData= async () => {
       const response = await fetch(url, {
         method: "GET",
         headers: { "content-type": "application/json" },
@@ -50,7 +37,7 @@ export default function Details() {
      const data : Film[]= await response.json();
      setFilm(data[0])
     };
-    getFilm();
+    getData();
   }, [id]);
   return (
     <Layout activeLink="">
