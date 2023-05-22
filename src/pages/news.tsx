@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Layout from "../components/Layout";
 
-export default function news() {
+export default function News() {
   useEffect(() => {
     const getData = async () => {
         try {
