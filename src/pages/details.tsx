@@ -8,7 +8,6 @@ import { useAppDispatch } from "../features/Hooks";
 import { insert } from "../features/FavorList";
 import { GrStatusGood } from "../../node_modules/react-icons/gr";
 import { Film } from "@/config/interface";
-import Image from "next/image";
 import {
   Button,
   Dialog,
@@ -16,7 +15,6 @@ import {
   Card,
   Typography,
   CardMedia,
-  Box,
 } from "@mui/material";
 interface RouterQuery {
   id: string;
@@ -93,6 +91,12 @@ export default function Details() {
                 className="detail-image"
                 image={film.image}
                 alt="Live from space album cover"
+                sx={{
+                  display: {
+                    xs: "none",
+                    md: "block"
+                  }
+                }}
               />
             </Grid>
             <Grid
@@ -102,13 +106,13 @@ export default function Details() {
                 paddingTop: "0.5rem",
               }}
             >
-              <Typography style={{ marginBottom: "1rem", fontSize: "2.5rem" }}>
+              <Typography style={{ marginBottom: "0.5rem", fontSize: "2.5rem" }}>
                 {film.title}
               </Typography>
-              <Typography style={{ marginBottom: "1rem", fontSize: "1.5rem" }}>
+              <Typography style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}>
                 Year: {film.year}
               </Typography>
-              <Typography style={{ marginBottom: "1rem", fontSize: "1.5rem" }}>
+              <Typography style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}>
                 Director: {film.director}
               </Typography>
               <div className="details-information">
