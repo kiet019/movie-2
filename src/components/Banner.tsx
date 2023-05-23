@@ -1,4 +1,5 @@
 import { banner } from "@/config/interface";
+import { CardMedia } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 interface Props {
@@ -18,7 +19,16 @@ export default function Banner({ banners }: Props) {
   return (
     <div>
       <div className="banner">
-        <img src={banners[index].image} className="banner-image" alt="Banner" />
+        <CardMedia
+          component="img"
+          image={banners[index].image}
+          alt="Banner"
+          sx={{
+            height: {
+              md: 400
+            }
+          }}
+        />
       </div>
     </div>
   );

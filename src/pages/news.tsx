@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
+import { News } from "@/config/interface";
+import NewsCard from "../components/NewsCard";
 
 export default function News() {
+  const [newsList, setNewsList] = useState<News[]>([])
   useEffect(() => {
     const getData = async () => {
         try {
@@ -18,6 +21,7 @@ export default function News() {
         })})
         const data = await response.json();
         console.log(data.data.getNews);
+        setNewsList(data.data.getNews)
       } catch(error) {
         console.log(error)
       }
@@ -26,7 +30,9 @@ export default function News() {
   }, []);
   return (
     <Layout >
-      <div></div>
+       {newsList.map((news) => (
+        <NewsCard news={news}/>
+       ))}
     </Layout>
   );
 }

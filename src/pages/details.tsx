@@ -8,7 +8,16 @@ import { useAppDispatch } from "../features/Hooks";
 import { insert } from "../features/FavorList";
 import { GrStatusGood } from "../../node_modules/react-icons/gr";
 import { Film } from "@/config/interface";
-import { Button, Dialog, Grid, Card, CardMedia, Typography } from "@mui/material";
+import Image from "next/image";
+import {
+  Button,
+  Dialog,
+  Grid,
+  Card,
+  Typography,
+  CardMedia,
+  Box,
+} from "@mui/material";
 interface RouterQuery {
   id: string;
 }
@@ -77,21 +86,40 @@ export default function Details() {
               </Button>
             </Grid>
           </Grid>
-          <div className="detail-main">
-            <div className="detail-image">
-              <img src={film.image} alt="" />
-            </div>
-            <div>
-              <Typography style={{ marginBottom: "1rem", fontSize:"2.5rem" }} >
+          <Grid container spacing={0} className="detail-main">
+            <Grid xs={0} md={4}>
+              <CardMedia
+                component="img"
+                className="detail-image"
+                image={film.image}
+                alt="Live from space album cover"
+              />
+            </Grid>
+            <Grid
+              xs={12}
+              md={8}
+              style={{
+                paddingTop: "0.5rem",
+              }}
+            >
+              <Typography style={{ marginBottom: "1rem", fontSize: "2.5rem" }}>
                 {film.title}
               </Typography>
-              <Typography style={{ marginBottom: "1rem", fontSize:"1.5rem" }}>Year: {film.year}</Typography>
-              <Typography style={{ marginBottom: "1rem", fontSize:"1.5rem" }}>Director: {film.director}</Typography>
+              <Typography style={{ marginBottom: "1rem", fontSize: "1.5rem" }}>
+                Year: {film.year}
+              </Typography>
+              <Typography style={{ marginBottom: "1rem", fontSize: "1.5rem" }}>
+                Director: {film.director}
+              </Typography>
               <div className="details-information">
-                <Typography style={{ marginBottom: "1rem", fontSize:"1.2rem" }}>{film.information}</Typography>
+                <Typography
+                  style={{ marginBottom: "1rem", fontSize: "1.2rem" }}
+                >
+                  {film.information}
+                </Typography>
               </div>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
         </Card>
       ) : null}
       <Dialog

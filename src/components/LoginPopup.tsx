@@ -65,9 +65,7 @@ export default function Login({ visible, setVisible }: Props) {
       fullWidth
       maxWidth="xs"
     >
-      <DialogTitle>
-        Welcome to Movie-app
-      </DialogTitle>
+      <DialogTitle>Welcome to Movie-app</DialogTitle>
       <DialogContent>
         {sign === false ? (
           <>
