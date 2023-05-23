@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { Film } from "@/config/interface";
 import Protected from "../components/Protected";
 import { Button, Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import FilmCard from "../components/FilmCard";
 
 export default function Favor() {
   const router = useRouter();
@@ -32,33 +34,31 @@ export default function Favor() {
         <Typography variant="h3" margin={3}>
           Favorite Films
         </Typography>
+          <Button
+            variant="contained"
+            onClick={() => {
+              dispatch(save(favorFilmList.id));
+            }}
+          >
+            save
+          </Button>
         <div className="show-favor-film">
-          {filmList !== undefined ? (
-            filmList
-              .filter((film) => favorFilmList.filmList.includes(film.id))
-              .map((film) => (
-                <div
-                  key={film.id}
-                  className="hover-mouse"
-                  onClick={() => {
-                    router.push("/details?id=" + film.id);
-                  }}
-                >
-                  <img src={film.image} alt="" />
-                </div>
-              ))
-          ) : (
-            <></>
-          )}
+          <Grid container spacing={3}>
+            {filmList !== undefined ? (
+              filmList
+                .filter((film) => favorFilmList.filmList.includes(film.id))
+                .map((film) => {
+                  return (
+                    <Grid xs={6} sm={6} md={4} key={film.id}>
+                      <FilmCard film={film}/>
+                    </Grid>
+                  );
+                })
+            ) : (
+              <></>
+            )}
+          </Grid>
         </div>
-        <Button
-         variant="contained"
-          onClick={() => {
-            dispatch(save(favorFilmList.id));
-          }}
-        >
-          save
-        </Button>
       </Protected>
     </Layout>
   );
