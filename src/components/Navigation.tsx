@@ -267,34 +267,42 @@ export default function Navigation() {
                   onClose={handleCloseUserMenu}
                 >
                   <div style={{ padding: "0rem 1.5rem" }}>
-                    <Typography variant="h6">Sign as </Typography>
-                    <Typography
-                      style={{ fontSize: "1.2rem", borderBottom: "0.5px solid black" }}
-                    >
-                      {auth.currentUser.email}
-                    </Typography>
-                    {/* <MenuItem onClick={handleCloseUserMenu}> */}
-                    <Typography
-                      style={{ borderBottom: "0.5px solid black" }}
-                      className="user-menu hover-mouse"
-                      onClick={() => {
-                        handleCloseUserMenu();
-                        router.push("/favor");
-                      }}
-                    >
-                      Favor Films
-                    </Typography>
-                    <Typography
-                      className="user-menu logout hover-mouse"
-                      onClick={() => {
-                        handleCloseUserMenu();
-                        signOut(auth).then(() => {
-                          dispatch(setIsActive({ status: false }));
-                        });
-                      }}
-                    >
-                      Log out
-                    </Typography>
+                    <MenuItem>
+                      <Typography variant="h6">Sign as </Typography>
+                      <Typography
+                        style={{
+                          fontSize: "1.2rem",
+                          borderBottom: "0.5px solid black",
+                        }}
+                      >
+                        {auth.currentUser.email}
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem>
+                      <Typography
+                        style={{ borderBottom: "0.5px solid black" }}
+                        className="user-menu hover-mouse"
+                        onClick={() => {
+                          handleCloseUserMenu();
+                          router.push("/favor");
+                        }}
+                      >
+                        Favor Films
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem>
+                      <Typography
+                        className="user-menu logout hover-mouse"
+                        onClick={() => {
+                          handleCloseUserMenu();
+                          signOut(auth).then(() => {
+                            dispatch(setIsActive({ status: false }));
+                          });
+                        }}
+                      >
+                        Log out
+                      </Typography>
+                    </MenuItem>
                   </div>
                 </Menu>
               </Box>
