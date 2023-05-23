@@ -31,7 +31,7 @@ export default function News() {
   return (
     <Layout >
        {newsList.map((news) => (
-        <NewsCard news={news}/>
+        <NewsCard news={news} key={news.id}/>
        ))}
     </Layout>
   );
