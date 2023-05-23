@@ -266,22 +266,16 @@ export default function Navigation() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <div style={{ padding: "0rem 1.5rem" }}>
+                  <div style={{ padding: "0rem 1rem" }}>
                     <MenuItem>
-                      <Typography variant="h6">Sign as </Typography>
-                      <Typography
-                        style={{
-                          fontSize: "1.2rem",
-                          borderBottom: "0.5px solid black",
-                        }}
-                      >
+                      <Typography variant="h6">
+                        Sign as <br></br>
                         {auth.currentUser.email}
                       </Typography>
                     </MenuItem>
                     <MenuItem>
                       <Typography
-                        style={{ borderBottom: "0.5px solid black" }}
-                        className="user-menu hover-mouse"
+                        className="user-menu"
                         onClick={() => {
                           handleCloseUserMenu();
                           router.push("/favor");
@@ -292,7 +286,7 @@ export default function Navigation() {
                     </MenuItem>
                     <MenuItem>
                       <Typography
-                        className="user-menu logout hover-mouse"
+                        className="user-menu logout"
                         onClick={() => {
                           handleCloseUserMenu();
                           signOut(auth).then(() => {
