@@ -3,67 +3,56 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { News } from "@/config/interface";
 
 interface Props {
   news: News;
 }
 export default function NewsCard({ news }: Props) {
-  const theme = useTheme();
-
   return (
-    <Card sx={{ display: "flex" }}>
+    <Card
+      sx={{ display: "flex" }}
+      style={{
+        maxWidth: "50rem",
+        margin: "auto",
+        marginBottom: "2rem",
+        height: "17rem",
+      }}
+    >
       <CardMedia
         component="img"
         sx={{
           width: {
-            xs: 100, // theme.breakpoints.up('xs')
-            sm: 200, // theme.breakpoints.up('sm')
-            md: 300, // theme.breakpoints.up('md')
-            lg: 400, // theme.breakpoints.up('lg')
-            xl: 400,
+            xs: 250,
+            md: 320, // theme.breakpoints.up('md')
           },
         }}
-        image="/static/images/cards/live-from-space.jpg"
+        style={{
+          margin: "1rem",
+          boxShadow: "0px 0px 5px black"
+        }}
+        image={news.img}
         alt="Live from space album cover"
       />
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box sx={{ display: "flex", flexDirection: "column" }} style={{
+        overflow: "hidden"
+      }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography component="div" variant="h5">
-            Live From Space
+            {news.title}
           </Typography>
           <Typography
             variant="subtitle1"
             color="text.secondary"
             component="div"
           >
-            Mac Miller
+            By {news.by}
+          </Typography>
+          <Typography component="div" variant="body1">
+            {news.title}
           </Typography>
         </CardContent>
-        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-          <IconButton aria-label="previous">
-            {theme.direction === "rtl" ? (
-              <SkipNextIcon />
-            ) : (
-              <SkipPreviousIcon />
-            )}
-          </IconButton>
-          <IconButton aria-label="play/pause">
-            <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-          </IconButton>
-          <IconButton aria-label="next">
-            {theme.direction === "rtl" ? (
-              <SkipPreviousIcon />
-            ) : (
-              <SkipNextIcon />
-            )}
-          </IconButton>
-        </Box>
       </Box>
     </Card>
   );

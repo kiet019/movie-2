@@ -266,25 +266,26 @@ export default function Navigation() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <div style={{ padding: "0rem 1rem" }}>
+                  <div style={{ padding: "0rem 1.5rem" }}>
                     <Typography variant="h6">Sign as </Typography>
                     <Typography
-                      style={{ fontSize: "1.2rem", marginBottom: "0rem" }}
+                      style={{ fontSize: "1.2rem", borderBottom: "0.5px solid black" }}
                     >
                       {auth.currentUser.email}
                     </Typography>
                     {/* <MenuItem onClick={handleCloseUserMenu}> */}
-                    <Button
-                      fullWidth
+                    <Typography
+                      style={{ borderBottom: "0.5px solid black" }}
+                      className="user-menu hover-mouse"
                       onClick={() => {
                         handleCloseUserMenu();
                         router.push("/favor");
                       }}
                     >
                       Favor Films
-                    </Button>
-                    <Button
-                      fullWidth
+                    </Typography>
+                    <Typography
+                      className="user-menu logout hover-mouse"
                       onClick={() => {
                         handleCloseUserMenu();
                         signOut(auth).then(() => {
@@ -293,9 +294,7 @@ export default function Navigation() {
                       }}
                     >
                       Log out
-                    </Button>
-                    {/* <Typography>hello</Typography> */}
-                    {/* </MenuItem> */}
+                    </Typography>
                   </div>
                 </Menu>
               </Box>
@@ -303,74 +302,7 @@ export default function Navigation() {
           </Toolbar>
         </Container>
       </AppBar>
-      {/*
-        
-          <Navbar.Content
-            css={{
-              "@xs": {
-                w: "12%",
-                jc: "flex-end",
-              },
-            }}
-          >
-            <Dropdown placement="bottom-right">
-              <Navbar.Item>
-                <Dropdown.Trigger>
-                  <Avatar
-                    bordered
-                    as="button"
-                    color="secondary"
-                    size="md"
-                    src={
-                      auth.currentUser.photoURL === null
-                        ? ""
-                        : auth.currentUser.photoURL
-                    }
-                    alt=""
-                  />
-                </Dropdown.Trigger>
-              </Navbar.Item>
-              <Dropdown.Menu
-                aria-label="User menu actions"
-                color="secondary"
-                onAction={(actionKey) => console.log({ actionKey })}
-              >
-                <Dropdown.Item key="profile" css={{ height: "$18" }}>
-                  <Text b color="inherit" css={{ d: "flex" }}>
-                    Logged in as
-                  </Text>
-                  <Text b color="inherit" css={{ d: "flex" }}>
-                    {auth.currentUser.email}
-                  </Text>
-                </Dropdown.Item>
-                <Dropdown.Item key="settings" withDivider>
-                  <div
-                    onClick={() => {
-                      router.push("/favor");
-                    }}
-                  >
-                    Favorite List
-                  </div>
-                </Dropdown.Item>
-                <Dropdown.Item key="help_and_feedback" withDivider>
-                  Help & Feedback
-                </Dropdown.Item>
-                <Dropdown.Item key="logout" withDivider color="error">
-                  <div
-                    onClick={() => {
-                      signOut(auth).then(() => {
-                        dispatch(setIsActive({ status: false }));
-                      });
-                    }}
-                  >
-                    Log Out
-                  </div>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Navbar.Content>
-        )}
-       */}
+
       <Login visible={visible} setVisible={setVisible} />
     </>
   );
