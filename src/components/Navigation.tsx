@@ -163,6 +163,14 @@ export default function Navigation() {
                   display: { xs: "block", md: "none" },
                 }}
               >
+                <MenuItem
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    router.push("/");
+                  }}
+                >
+                  <Typography textAlign="center">Home</Typography>
+                </MenuItem>
                 {navbarItem.map((item) => (
                   <MenuItem
                     key={item.key}
@@ -230,7 +238,7 @@ export default function Navigation() {
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <div style={{padding: "0px 11px 0px"}}>
+                    <div style={{ padding: "0px 11px 0px" }}>
                       <Avatar
                         alt="Remy Sharp"
                         src={
