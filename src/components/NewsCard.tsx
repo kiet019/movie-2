@@ -132,3 +132,6 @@ export default function NewsCard({ news }: Props) {
     </Card>
   );
 }
+export async function getServerSideProps() {
+  
+}
