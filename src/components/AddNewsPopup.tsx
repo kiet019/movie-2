@@ -12,6 +12,7 @@ import { AddInputNews } from "@/config/interface";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAppDispatch } from "../features/Hooks";
 import { setOpen } from "../features/Alert";
+import { useRef } from 'react'
 
 export default function AddNewsPopup() {
   const dispatch = useAppDispatch();
