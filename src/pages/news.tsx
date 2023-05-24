@@ -17,14 +17,15 @@ export default function News() {
           },
           body: JSON.stringify({
             query: `query Query {
-                      getNews(ids : []) { id img title description by }
+                      getAllNews { id img title description by }
                     }
                     `,
           }),
         });
         const data = await response.json();
-        console.log(data.data.getNews);
-        setNewsList(data.data.getNews);
+        console.log(data.data.getAllNews);
+        setNewsList(data.data.getAllNews)
+        // setNewsList(data.data.getNews);
       } catch (error) {
         console.log(error);
       }
