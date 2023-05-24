@@ -13,7 +13,6 @@ export default function Favorcontext({ children }: Props) {
   const dispatch = useAppDispatch();
   const router = useRouter()
   useEffect(() => {
-    console.log(auth.currentUser?.uid);
     if (auth.currentUser !== null) {
       const url = new URL(
         "https://64055d32eed195a99f80eece.mockapi.io/api/films/favor"

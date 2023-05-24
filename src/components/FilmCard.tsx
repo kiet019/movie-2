@@ -21,31 +21,41 @@ export default function FilmCard({ film }: Props) {
     >
       <CardMedia
         component="img"
-        sx= {{
+        sx={{
           height: {
             xs: 100,
-            md: 200
-          }
+            md: 200,
+          },
         }}
         image={film.image}
         alt="Paella dish"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div" style={{
-          height: "3.5rem",
-          overflow: "hidden"
-        }}>
-          {film.title} 
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          style={{
+            height: "3.5rem",
+            overflow: "hidden",
+          }}
+        >
+          {film.title}
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
-          {film.year} 
+          {film.year}
         </Typography>
-        <Typography  variant="body2" color="text.secondary" style={{
-          height: "3.7rem",
-          overflow: "hidden",
-        }}>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          style={{
+            height: "3.7rem",
+            overflow: "hidden",
+          }}
+        >
           {film.information}
         </Typography>
+        
       </CardContent>
     </Card>
   );

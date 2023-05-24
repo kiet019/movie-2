@@ -3,10 +3,14 @@ import Layout from "../components/Layout";
 import { News } from "@/config/interface";
 import NewsCard from "../components/NewsCard";
 import { Pagination, Typography } from "@mui/material";
+import AddNewsPopup from "../components/AddNewsPopup";
+import { useAppSelector } from "../features/Hooks";
+
 
 export default function News() {
   const [newsList, setNewsList] = useState<News[]>([]);
   const [page, setPage] = useState(1);
+  const alert = useAppSelector((state) => state.alert)
   useEffect(() => {
     const getData = async () => {
       try {
@@ -23,17 +27,17 @@ export default function News() {
           }),
         });
         const data = await response.json();
-        console.log(data.data.getAllNews);
-        setNewsList(data.data.getAllNews)
+        setNewsList(data.data.getAllNews);
         // setNewsList(data.data.getNews);
       } catch (error) {
         console.log(error);
       }
     };
     getData();
-  }, []);
+  }, [alert]);
   return (
     <Layout>
+      <AddNewsPopup/>
       <Typography variant="h3" margin={3}>
         News
       </Typography>

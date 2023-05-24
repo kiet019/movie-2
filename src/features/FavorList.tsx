@@ -29,35 +29,29 @@ export const favorFilmListSlice = createSlice({
       }
     },
     save: (state, action: PayloadAction<string>) => {
-      console.log(JSON.stringify(state))
-      fetch(
-        url +
-          action.payload,
-        {
-          method: "PUT", // or PATCH
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(state),
-        }
-      )
+      console.log(JSON.stringify(state));
+      fetch(url + action.payload, {
+        method: "PUT", // or PATCH
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(state),
+      });
     },
     create: (state, action: PayloadAction<string | undefined>) => {
       if (action.payload !== undefined) {
-        console.log(JSON.stringify({ userID: action.payload }))
+        console.log(JSON.stringify({ userID: action.payload }));
         fetch(url, {
           method: "POST", // or PATCH
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ userID: action.payload }),
-        })
+        });
       }
     },
-    // remove: (state, action: PayloadAction<Film>) => {
-    //   state[0].filmList = state[0].filmList.filter((film) => {
-    //     film.id !== action.payload.id;
-    //   });
-    // },
+    remove: (state, action: PayloadAction<string>) => {
+      state.filmList = state.filmList.filter((film) => !action.payload.includes(film))
+    },
   },
 });
-export const { setData, insert, save, create, clear } =
+export const { setData, insert, save, create, clear, remove } =
   favorFilmListSlice.actions;
 export const selectFavorFilm = (state: RootState) => state.favorFilmList;
 export default favorFilmListSlice.reducer;

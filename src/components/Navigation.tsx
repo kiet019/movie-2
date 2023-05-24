@@ -3,7 +3,6 @@ import MovieIcon from "@mui/icons-material/Movie";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
-import Login from "./LoginPopup";
 import { useAppDispatch, useAppSelector } from "../features/Hooks";
 import { setIsActive } from "../features/UserStatus";
 import { auth } from "../../config/firebaseConfig";
@@ -27,6 +26,7 @@ import {
 
 import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import LoginPopup from "./LoginPopup";
 export default function Navigation() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -35,16 +35,13 @@ export default function Navigation() {
     null
   );
   const dispatch = useAppDispatch();
-  const [visible, setVisible] = useState(false);
   const navbarItem: NavItem[] = [
     { key: "movies", name: "Movies" },
     { key: "series", name: "Series" },
     { key: "news", name: "News" },
   ];
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
   const userStatus = useAppSelector((state) => state.userStatus.status);
   const router = useRouter();
-  const [searchParams, setSearchParams] = useState("");
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -225,15 +222,7 @@ export default function Navigation() {
               />
             </Search>
             {auth.currentUser === null ? (
-              <Button
-                onClick={() => {
-                  setVisible(true);
-                }}
-                sx={{ my: 2, color: "white", display: "block" }}
-                size="large"
-              >
-                login
-              </Button>
+              <LoginPopup/>
             ) : (
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
@@ -304,8 +293,6 @@ export default function Navigation() {
           </Toolbar>
         </Container>
       </AppBar>
-
-      <Login visible={visible} setVisible={setVisible} />
     </>
   );
 }

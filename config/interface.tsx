@@ -1,3 +1,5 @@
+import { AlertColor } from "@mui/material";
+
 export interface Film {
   image: string;
   title: string;
@@ -35,4 +37,22 @@ export interface News {
   title: string;
   description: string;
   by: string;
+}
+export interface AddInputNews{
+  img: string,
+  title: string,
+  by: string,
+  description: string,
+}
+export interface Alert{
+  open: boolean
+  message: string
+  severity: AlertColor
+}
+export interface UpdateInputNews{
+  id: string;
+  img: string,
+  title: string,
+  by: string,
+  description: string,
 }

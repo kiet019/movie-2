@@ -4,18 +4,11 @@ import { useEffect, useState } from "react";
 import { AiOutlineUnorderedList } from "../../node_modules/react-icons/ai";
 import { MdOutlineFavorite } from "../../node_modules/react-icons/md";
 import { MdHd } from "../../node_modules/react-icons/md";
-import { useAppDispatch } from "../features/Hooks";
+import { useAppDispatch, useAppSelector } from "../features/Hooks";
 import { insert } from "../features/FavorList";
-import { GrStatusGood } from "../../node_modules/react-icons/gr";
 import { Film } from "@/config/interface";
-import {
-  Button,
-  Dialog,
-  Grid,
-  Card,
-  Typography,
-  CardMedia,
-} from "@mui/material";
+import { Button, Grid, Card, Typography, CardMedia } from "@mui/material";
+import { setOpen } from "../features/Alert";
 interface RouterQuery {
   id: string;
 }
@@ -25,12 +18,7 @@ export default function Details() {
   const [film, setFilm] = useState<Film>();
   const { id } = router.query as unknown as RouterQuery;
   const dispatch = useAppDispatch();
-  const [visible, setVisible] = useState(false);
-
-  const closeHandler = () => {
-    setVisible(false);
-    console.log("closed");
-  };
+  const userStatus = useAppSelector((state) => state.userStatus.status);
   useEffect(() => {
     const url = new URL(
       "https://64055d32eed195a99f80eece.mockapi.io/api/films/films"
@@ -58,26 +46,30 @@ export default function Details() {
             width="100%"
           ></iframe>
           <Grid container gap={0}>
-            <Grid xs={4}>
+            <Grid item xs={4}>
               <Button className="button-video" variant="contained">
                 <AiOutlineUnorderedList />
                 List
               </Button>
             </Grid>
-            <Grid xs={4}>
+            <Grid item xs={4}>
               <Button
                 variant="contained"
                 className="button-video"
                 onClick={() => {
-                  setVisible(true);
-                  dispatch(insert(film.id));
+                  if (userStatus === true) {
+                    dispatch(insert(film.id));
+                    dispatch(setOpen({ open: true, message: "Adding success", severity:"success"}))
+                  } else {
+                    dispatch(setOpen({ open: true, message: "You must login to use it", severity:"error"}))
+                  }
                 }}
               >
                 <MdOutlineFavorite />
                 Favor
               </Button>
             </Grid>
-            <Grid xs={4}>
+            <Grid item xs={4}>
               <Button variant="contained" className="button-video">
                 <MdHd />
                 Resolution
@@ -85,7 +77,7 @@ export default function Details() {
             </Grid>
           </Grid>
           <Grid container spacing={0} className="detail-main">
-            <Grid xs={0} md={4}>
+            <Grid item xs={0} md={4}>
               <CardMedia
                 component="img"
                 className="detail-image"
@@ -94,25 +86,32 @@ export default function Details() {
                 sx={{
                   display: {
                     xs: "none",
-                    md: "block"
-                  }
+                    md: "block",
+                  },
                 }}
               />
             </Grid>
             <Grid
+              item
               xs={12}
               md={8}
               style={{
                 paddingTop: "0.5rem",
               }}
             >
-              <Typography style={{ marginBottom: "0.5rem", fontSize: "2.5rem" }}>
+              <Typography
+                style={{ marginBottom: "0.5rem", fontSize: "2.5rem" }}
+              >
                 {film.title}
               </Typography>
-              <Typography style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}>
+              <Typography
+                style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}
+              >
                 Year: {film.year}
               </Typography>
-              <Typography style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}>
+              <Typography
+                style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}
+              >
                 Director: {film.director}
               </Typography>
               <div className="details-information">
@@ -126,17 +125,6 @@ export default function Details() {
           </Grid>
         </Card>
       ) : null}
-      <Dialog
-        open={visible}
-        onClose={closeHandler}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <div className="notification">
-          <div>Adding success</div>
-          <GrStatusGood />
-        </div>
-      </Dialog>
     </Layout>
   );
 }
