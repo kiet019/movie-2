@@ -66,5 +66,7 @@ export default function News() {
   );
 }
 export async function getServerSideProps() {
-  
+  return {
+
+  };
 }
