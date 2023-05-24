@@ -65,3 +65,6 @@ export default function News() {
     </Layout>
   );
 }
+export async function getServerSideProps() {
+  
+}
