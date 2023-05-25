@@ -22,7 +22,7 @@ import { useAppDispatch } from "@/src/features/Hooks";
 import Link from "next/link";
 import { setOpen } from "@/src/features/Alert";
 import { useAppSelector } from "../../features/Hooks";
-export default function editNews() {
+export default function EditNews() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [agree, setAgree] = useState(false);
   const dispatch = useAppDispatch();
