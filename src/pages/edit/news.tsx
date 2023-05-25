@@ -176,5 +176,5 @@ export default function EditNews() {
   );
 }
 export async function getServerSideProps() {
-  return {};
+  return { props: {} };
 }
