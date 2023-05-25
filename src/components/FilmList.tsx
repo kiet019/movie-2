@@ -52,6 +52,7 @@ export default function FilmList({ filmList, header, number }: Props) {
               }}
               style={{
                 float: "right",
+                marginTop: "1rem"
               }}
               shape="rounded"
               color="primary"

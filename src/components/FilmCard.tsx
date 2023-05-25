@@ -31,12 +31,14 @@ export default function FilmCard({ film }: Props) {
       }}
     >
       <div className="card-play">
-        <div className="card-play-button">
+        <div className="card-play-button right"></div>
+        <div className="card-play-button left">
           <PlayArrowIcon
             sx={{
               color: theme.logo,
               width: "4rem",
               height: "4rem",
+              transform: "rotate(-45deg)",
             }}
           />
         </div>

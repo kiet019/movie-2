@@ -112,6 +112,7 @@ export default function Details() {
                     xs: "none",
                     md: "block",
                   },
+                  boxShadow: "0px 0px 5px white"
                 }}
               />
             </Grid>
