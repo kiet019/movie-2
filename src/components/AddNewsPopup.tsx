@@ -14,7 +14,6 @@ import { useAppDispatch } from "../features/Hooks";
 import { setOpen } from "../features/Alert";
 
 export default function AddNewsPopup() {
-  
   const dispatch = useAppDispatch();
   const {
     register,
@@ -85,7 +84,9 @@ export default function AddNewsPopup() {
               helperText={
                 errors.title !== undefined ? "must be 2 character or more" : ""
               }
-              className="form-margin"
+              style={{
+                marginBottom: "1rem"
+              }}
               {...register("title", {
                 required: true,
                 minLength: 2,
@@ -119,9 +120,7 @@ export default function AddNewsPopup() {
                   minLength: 2,
                 })}
                 helperText={
-                  errors.by !== undefined
-                    ? "must be 2 character or more"
-                    : ""
+                  errors.by !== undefined ? "must be 2 character or more" : ""
                 }
               ></TextField>
             </div>
@@ -136,7 +135,11 @@ export default function AddNewsPopup() {
                 required: true,
                 minLength: 2,
               })}
-              helperText={errors.description !== undefined? "must be 2 character or more" : ""}
+              helperText={
+                errors.description !== undefined
+                  ? "must be 2 character or more"
+                  : ""
+              }
             ></TextField>
             <div
               style={{
