@@ -75,7 +75,9 @@ export default function UpdateNewsPopup({ news }: Props) {
               multiline
               rows={2}
               fullWidth
-              className="form-margin"
+              style={{
+                marginBottom: "1rem"
+              }}
               {...register("title")}
               defaultValue={news.title}
             />
@@ -110,7 +112,9 @@ export default function UpdateNewsPopup({ news }: Props) {
               multiline
               rows={7}
               label="Information"
-              className="form-margin"
+              style={{
+                marginBottom: "1rem"
+              }}
               {...register("description")}
               defaultValue={news.description}
             ></TextField>

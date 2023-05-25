@@ -130,7 +130,9 @@ export default function AddNewsPopup() {
               rows={7}
               error={errors.description !== undefined}
               label="Information"
-              className="form-margin"
+              style={{
+                marginBottom: "1rem"
+              }}
               {...register("description", {
                 required: true,
                 minLength: 2,
