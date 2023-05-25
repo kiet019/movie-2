@@ -59,9 +59,21 @@ export default function Details() {
                 onClick={() => {
                   if (userStatus === true) {
                     dispatch(insert(film.id));
-                    dispatch(setOpen({ open: true, message: "Adding success", severity:"success"}))
+                    dispatch(
+                      setOpen({
+                        open: true,
+                        message: "Adding success",
+                        severity: "success",
+                      })
+                    );
                   } else {
-                    dispatch(setOpen({ open: true, message: "You must login to use it", severity:"error"}))
+                    dispatch(
+                      setOpen({
+                        open: true,
+                        message: "You must login to use it",
+                        severity: "error",
+                      })
+                    );
                   }
                 }}
               >
@@ -99,24 +111,17 @@ export default function Details() {
                 paddingTop: "0.5rem",
               }}
             >
+              <Typography style={{ fontSize: "2rem" }}>{film.title}</Typography>
+              <Typography variant="subtitle1">Year: {film.year}</Typography>
               <Typography
-                style={{ marginBottom: "0.5rem", fontSize: "2.5rem" }}
-              >
-                {film.title}
-              </Typography>
-              <Typography
-                style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}
-              >
-                Year: {film.year}
-              </Typography>
-              <Typography
-                style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}
+                variant="subtitle1"
               >
                 Director: {film.director}
               </Typography>
               <div className="details-information">
                 <Typography
-                  style={{ marginBottom: "1rem", fontSize: "1.2rem" }}
+                  style={{ marginBottom: "1rem" }}
+                  variant="body1"
                 >
                   {film.information}
                 </Typography>

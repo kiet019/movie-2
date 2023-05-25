@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import Navigation from "./Navigation";
+import { Container } from "@mui/material";
 
 interface Props {
   children: ReactNode;
@@ -8,12 +9,14 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-      <div className="layout-container">
+      <Container maxWidth="lg" style={{
+        paddingTop: "10rem"
+      }}>
         <Head>
           <title>Movie App</title>
         </Head>
         <Navigation />
         <div className="user">{children}</div>
-      </div>
+      </Container>
   );
 }

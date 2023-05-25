@@ -187,7 +187,7 @@ export default function LoginPopup() {
           onClick={() => {
             setVisible(true);
           }}
-          sx={{ my: 2, color: "white", display: "block" }}
+          className="login"
           size="large"
         >
           login

@@ -1,8 +1,8 @@
-import Filmshow from "../components/FilmShow";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import { useEffect } from "react";
 import { RouterQuery } from "@/config/interface";
+import FilmList from "../components/FilmList";
 
 export default function Type() {
   const router = useRouter();
@@ -12,12 +12,11 @@ export default function Type() {
     <>
       {type !== undefined || title !== undefined ? (
         <Layout>
-          <Filmshow
-            type={type}
+          {/* <FilmList
+
             header={title === undefined ? type : "Search for " + title}
             number={12}
-            title={title}
-          />
+          /> */}
         </Layout>
       ) : (
         <></>

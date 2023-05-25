@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import { useAppDispatch, useAppSelector } from "../features/Hooks";
 import { remove, save } from "../features/FavorList";

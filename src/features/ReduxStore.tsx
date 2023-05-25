@@ -2,13 +2,15 @@ import { configureStore } from '@reduxjs/toolkit'
 import favorReducer from "./FavorList"
 import userStatus from "./UserStatus"
 import alert from "./Alert"
+import theme from "./Theme"
 // ...
 
 export const store = configureStore({
   reducer: {
     favorFilmList: favorReducer,
     userStatus: userStatus,
-    alert: alert
+    alert: alert,
+    theme: theme
   },
 })
 

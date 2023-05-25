@@ -7,9 +7,11 @@ import { useAppDispatch, useAppSelector } from "../features/Hooks";
 import { setIsActive } from "../features/UserStatus";
 import { auth } from "../../config/firebaseConfig";
 import { NavItem } from "@/config/interface";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
   AppBar,
   Avatar,
+  Badge,
   Box,
   Button,
   Container,
@@ -111,11 +113,19 @@ export default function Navigation() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  useEffect(() => {
+  useEffect((  ) => {
   }, [userStatus]);
+  const theme = useAppSelector((state) => state.theme);
+  const favor = useAppSelector((state) => state.favorFilmList)
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar
+        position="fixed"
+        style={{
+          backgroundColor: theme.background,
+          boxShadow: "none",
+        }}
+      >
         <Container maxWidth="lg">
           <Toolbar disableGutters>
             <div
@@ -125,10 +135,14 @@ export default function Navigation() {
               className="hover-mouse"
             >
               <MovieIcon
-                sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-                style={{
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  mr: 1,
+                  transition: "200ms",
+                  ":hover": { transform: "scale(1.2)" },
                   height: "3.5em",
                   width: "3.5em",
+                  color: theme.border,
                 }}
               />
             </div>
@@ -202,14 +216,23 @@ export default function Navigation() {
                       router.push("/" + item.key);
                     }
                   }}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{
+                    marginLeft: "1rem",
+                    display: "block",
+                    transition: "200ms",
+                    ":hover": {
+                      transform: "scale(1.2)",
+                      backgroundColor: "orangered",
+                    },
+                  }}
                   size="large"
                 >
-                  {item.name}
+                  <Typography variant="h6" color={theme.font}>
+                    {item.name}
+                  </Typography>
                 </Button>
               ))}
             </Box>
-
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -223,9 +246,30 @@ export default function Navigation() {
               />
             </Search>
             {auth.currentUser === null ? (
-              <LoginPopup/>
+              <LoginPopup />
             ) : (
               <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open favor list">
+                  <IconButton>
+                  <Badge badgeContent={favor.filmList.length} color="primary">
+                    <FavoriteIcon
+                      sx={{
+                        color: theme.border,
+                        height: "1.5em",
+                        width: "1.5em",
+                        transition: "200ms",
+                        ":hover": {
+                          transform: "scale(1.2)",
+                        },
+                      }}
+                      onClick={() => {
+                        handleCloseUserMenu();
+                        router.push("/favor");
+                      }}
+                    />
+                    </Badge>
+                  </IconButton>
+                </Tooltip>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <div style={{ padding: "0px 11px 0px" }}>
@@ -261,17 +305,6 @@ export default function Navigation() {
                       <Typography variant="h6">
                         Sign as <br></br>
                         {auth.currentUser.email}
-                      </Typography>
-                    </MenuItem>
-                    <MenuItem>
-                      <Typography
-                        className="user-menu"
-                        onClick={() => {
-                          handleCloseUserMenu();
-                          router.push("/favor");
-                        }}
-                      >
-                        Favor Films
                       </Typography>
                     </MenuItem>
                     <MenuItem>
