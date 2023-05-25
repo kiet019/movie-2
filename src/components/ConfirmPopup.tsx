@@ -36,7 +36,6 @@ export default function ConfirmPopup({confirmOpen, setConfirmOpen, message, setA
             Cancel
           </Button>
           <Button onClick={() => {
-            handleClose
             setAgree(true)
           }}>Agree</Button>
         </DialogActions>

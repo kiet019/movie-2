@@ -6,11 +6,10 @@ import { Pagination, Typography } from "@mui/material";
 import AddNewsPopup from "../components/AddNewsPopup";
 import { useAppSelector } from "../features/Hooks";
 
-
 export default function News() {
   const [newsList, setNewsList] = useState<News[]>([]);
   const [page, setPage] = useState(1);
-  const alert = useAppSelector((state) => state.alert)
+  const alert = useAppSelector((state) => state.alert);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -37,7 +36,7 @@ export default function News() {
   }, [alert]);
   return (
     <Layout>
-      <AddNewsPopup/>
+      <AddNewsPopup />
       <Typography variant="h3" margin={3}>
         News
       </Typography>
@@ -67,6 +66,6 @@ export default function News() {
 }
 export async function getServerSideProps() {
   return {
-
+    props: {},
   };
 }

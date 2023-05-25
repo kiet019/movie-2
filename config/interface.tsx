@@ -56,3 +56,5 @@ export interface UpdateInputNews{
   by: string,
   description: string,
 }
+
+

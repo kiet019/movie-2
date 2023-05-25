@@ -34,6 +34,7 @@ export default function Favor() {
   useEffect(() => {
     if (agree === true) {
       dispatch(remove(deleteID))
+      setConfirmOpen(false)
     }
   }, [agree])
   return (
@@ -93,7 +94,7 @@ export default function Favor() {
             )}
           </Grid>
         </div>
-        <ConfirmPopup confirmOpen={confirmOpen} message="Delete this News ?" setConfirmOpen={setConfirmOpen} setAgree={setAgree}/>
+        <ConfirmPopup confirmOpen={confirmOpen} message="Delete this Film ?" setConfirmOpen={setConfirmOpen} setAgree={setAgree}/>
       </Protected>
     </Layout>
   );
