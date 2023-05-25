@@ -37,6 +37,7 @@ body {
     border: 0px;
     font-size: 1rem;
     height: 2rem;
+    color: white;
   }
   .detail-main {
     padding: 1rem;
@@ -114,4 +115,38 @@ body {
     transform: rotate(360deg);
   }
 }
+.card-play {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  z-index: 4;
+  .card-play-button {
+    display: flex;
+    width: 100%;
+    position: relative;
+    justify-content: space-around;
+    height: 100%;
+    align-items: center;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transition: opacity 1s;
+  }
+}
+.card-play:hover {
+  .card-play-button {
+    animation: fadeInAndSlideDown 1s;
+    animation-fill-mode: forwards;
+  }
 
+}
+@keyframes fadeInAndSlideDown {
+  0% {
+    opacity: 0;
+    transform: translate(-200px, -200px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0, 0);
+  }
+}

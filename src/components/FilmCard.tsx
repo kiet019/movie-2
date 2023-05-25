@@ -2,6 +2,7 @@ import { Film } from "@/config/interface";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useAppSelector } from "../features/Hooks";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 interface Props {
   film: Film;
 }
@@ -20,28 +21,47 @@ export default function FilmCard({ film }: Props) {
         position: "relative",
         height: "400px",
         border: "2px solid rgb(184, 4, 4)",
+        borderRadius: "1rem",
+        transition: "200ms",
+      }}
+      sx={{
+        ":hover": {
+          transform: "scale(1.05)",
+        },
       }}
     >
+      <div className="card-play">
+        <div className="card-play-button">
+          <PlayArrowIcon
+            sx={{
+              color: theme.logo,
+              width: "4rem",
+              height: "4rem",
+            }}
+          />
+        </div>
+      </div>
       <div
         style={{
           position: "absolute",
           height: "100%",
           width: "100%",
-          zIndex: "1"
+          zIndex: "1",
         }}
       >
         <div
           style={{
             height: "220px",
             width: "100%",
-            backgroundImage: "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0))",
+            backgroundImage:
+              "linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0))",
           }}
         ></div>
         <div
           style={{
             height: "185px",
             width: "100%",
-            backgroundColor: "rgba(0,0,0,0.8)",
+            backgroundColor: "rgba(0,0,0,0.9)",
           }}
         ></div>
       </div>
@@ -59,7 +79,7 @@ export default function FilmCard({ film }: Props) {
           position: "absolute",
           marginTop: "65%",
           color: theme.font,
-          zIndex: 2
+          zIndex: 2,
         }}
       >
         <Typography

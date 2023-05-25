@@ -34,60 +34,72 @@ export default function Details() {
     };
     getData();
   }, [id]);
+  const theme = useAppSelector((state) => state.theme);
   return (
     <Layout>
       {film !== undefined ? (
-        <Card>
-          <iframe
-            src={film.trailer}
-            title="YouTube video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            width="100%"
-          ></iframe>
-          <Grid container gap={0}>
-            <Grid item xs={4}>
-              <Button className="button-video" variant="contained">
-                <AiOutlineUnorderedList />
-                List
-              </Button>
+        <Card
+          style={{
+            backgroundColor: theme.inside,
+            border: "2px solid rgb(184, 4, 4)",
+            borderRadius: "2rem"
+          }}
+        >
+          <div
+            style={{
+              borderBottom: "2px solid rgb(184, 4, 4)",
+            }}
+          >
+            <iframe
+              src={film.trailer}
+              title="YouTube video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              width="100%"
+            ></iframe>
+            <Grid container gap={0}>
+              <Grid item xs={4}>
+                <Button className="button-video">
+                  <AiOutlineUnorderedList />
+                  List
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  className="button-video"
+                  onClick={() => {
+                    if (userStatus === true) {
+                      dispatch(insert(film.id));
+                      dispatch(
+                        setOpen({
+                          open: true,
+                          message: "Adding success",
+                          severity: "success",
+                        })
+                      );
+                    } else {
+                      dispatch(
+                        setOpen({
+                          open: true,
+                          message: "You must login to use it",
+                          severity: "error",
+                        })
+                      );
+                    }
+                  }}
+                >
+                  <MdOutlineFavorite />
+                  Favor
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button  className="button-video">
+                  <MdHd />
+                  Resolution
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                className="button-video"
-                onClick={() => {
-                  if (userStatus === true) {
-                    dispatch(insert(film.id));
-                    dispatch(
-                      setOpen({
-                        open: true,
-                        message: "Adding success",
-                        severity: "success",
-                      })
-                    );
-                  } else {
-                    dispatch(
-                      setOpen({
-                        open: true,
-                        message: "You must login to use it",
-                        severity: "error",
-                      })
-                    );
-                  }
-                }}
-              >
-                <MdOutlineFavorite />
-                Favor
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button variant="contained" className="button-video">
-                <MdHd />
-                Resolution
-              </Button>
-            </Grid>
-          </Grid>
+          </div>
           <Grid container spacing={0} className="detail-main">
             <Grid item xs={0} md={4}>
               <CardMedia
@@ -113,16 +125,11 @@ export default function Details() {
             >
               <Typography style={{ fontSize: "2rem" }}>{film.title}</Typography>
               <Typography variant="subtitle1">Year: {film.year}</Typography>
-              <Typography
-                variant="subtitle1"
-              >
+              <Typography variant="subtitle1">
                 Director: {film.director}
               </Typography>
               <div className="details-information">
-                <Typography
-                  style={{ marginBottom: "1rem" }}
-                  variant="body1"
-                >
+                <Typography style={{ marginBottom: "1rem" }} variant="body1">
                   {film.information}
                 </Typography>
               </div>
