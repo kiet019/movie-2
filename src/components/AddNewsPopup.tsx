@@ -156,7 +156,7 @@ export default function AddNewsPopup() {
           aria-label="add"
           style={{
             position: "fixed",
-            left: "80%",
+            right: "10%",
           }}
           size="medium"
           onClick={() => {

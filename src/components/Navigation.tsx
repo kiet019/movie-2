@@ -275,6 +275,17 @@ export default function Navigation() {
                     </MenuItem>
                     <MenuItem>
                       <Typography
+                        className="user-menu"
+                        onClick={() => {
+                          handleCloseUserMenu();
+                          router.push("/edit/news");
+                        }}
+                      >
+                        Edit News
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem>
+                      <Typography
                         className="user-menu logout"
                         onClick={() => {
                           handleCloseUserMenu();

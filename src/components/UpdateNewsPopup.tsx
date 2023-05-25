@@ -129,11 +129,6 @@ export default function UpdateNewsPopup({ news }: Props) {
       {!visible ? (
         <IconButton
           aria-label="update"
-          style={{
-            position: "absolute",
-            right: "0",
-            bottom: "0",
-          }}
           onClick={() => {
             setVisible(true);
           }}
