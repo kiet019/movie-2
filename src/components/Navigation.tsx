@@ -111,7 +111,8 @@ export default function Navigation() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  useEffect(() => {}, [userStatus]);
+  useEffect(() => {
+  }, [userStatus]);
   return (
     <>
       <AppBar position="fixed">

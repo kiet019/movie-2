@@ -10,10 +10,11 @@ import {
   Toolbar,
   TableBody,
   TablePagination,
+  Checkbox,
+  Button,
 } from "@mui/material";
 import AddNewsPopup from "../../components/AddNewsPopup";
 import { useEffect, useState } from "react";
-import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ConfirmPopup from "@/src/components/ConfirmPopup";
 import UpdateNewsPopup from "@/src/components/UpdateNewsPopup";
@@ -27,7 +28,7 @@ export default function EditNews() {
   const [agree, setAgree] = useState(false);
   const dispatch = useAppDispatch();
   const [newsList, setNewsList] = useState<News[]>([]);
-  const [selectNews, setSelectNews] = useState<News>();
+  const [selectNews, setSelectNews] = useState<string[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const alert = useAppSelector((state) => state.alert);
@@ -45,6 +46,9 @@ export default function EditNews() {
     setPage(0);
   };
   useEffect(() => {
+  }, [selectNews])
+  useEffect(() => {
+    console.log("hello")
     const getData = async () => {
       try {
         const response = await fetch("http://localhost:4000", {
@@ -77,12 +81,12 @@ export default function EditNews() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              query: `mutation DeleteNews($deleteNewsId: String!) {
-                    deleteNews(id: $deleteNewsId)
-                  }
+              query: `mutation DeleteNews($ids: [String!]) {
+                deleteNews(ids: $ids)
+              }
                   `,
               variables: {
-                deleteNewsId: selectNews.id,
+                ids: selectNews,
               },
             }),
           });
@@ -94,8 +98,10 @@ export default function EditNews() {
         );
       };
       deleteNews();
+      setSelectNews([])
     }
     setAgree(false);
+    setConfirmOpen(false);
   }, [agree]);
 
   return (
@@ -110,12 +116,15 @@ export default function EditNews() {
         >
           <Typography variant="h4">Edit News</Typography>
           <div>
-            <IconButton
+            <Button
               aria-label="delete"
               onClick={() => {
                 setConfirmOpen(true);
               }}
             >
+              <Typography color="error">
+                {selectNews.length > 0 ? `${selectNews.length} selected` : ""}
+              </Typography>
               <DeleteIcon
                 style={{
                   width: 30,
@@ -123,12 +132,13 @@ export default function EditNews() {
                 }}
                 color="error"
               />
-            </IconButton>
+            </Button>
           </div>
         </Toolbar>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell></TableCell>
               <TableCell>Title</TableCell>
               <TableCell>By</TableCell>
               <TableCell>Image</TableCell>
@@ -141,6 +151,20 @@ export default function EditNews() {
               .slice(0 + page * rowsPerPage, (page + 1) * rowsPerPage)
               .map((row) => (
                 <TableRow key={row.id}>
+                  <TableCell>
+                    <Checkbox
+                      color="error"
+                      onChange={(e) => {
+                        if (e.currentTarget.checked === true) {
+                          setSelectNews([...selectNews, row.id])
+                        } else {
+                          setSelectNews(
+                            selectNews.filter((id) => !row.id.includes(id))
+                          );
+                        }
+                      }}
+                    />
+                  </TableCell>
                   <TableCell align="justify">{row.title}</TableCell>
                   <TableCell>{row.by}</TableCell>
                   <TableCell>

@@ -23,7 +23,6 @@ export default function News() {
         });
         const data = await response.json();
         setNewsList(data.data.getAllNews);
-        // setNewsList(data.data.getNews);
       } catch (error) {
         console.log(error);
       }
