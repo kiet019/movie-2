@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import { News } from "@/config/interface";
 import NewsCard from "../components/NewsCard";
 import { Pagination, Typography } from "@mui/material";
+import { useAppSelector } from "../features/Hooks";
 export default function News() {
   const [newsList, setNewsList] = useState<News[]>([]);
   const [page, setPage] = useState(1);
@@ -29,9 +30,12 @@ export default function News() {
     };
     getData();
   }, []);
+  const theme = useAppSelector(state => state.theme)
   return (
     <Layout>
-      <Typography variant="h3" margin={3}>
+      <Typography variant="h3" sx={{
+        color: theme.logo
+      }} margin={3}>
         News
       </Typography>
       {newsList.length > 0 ? (
@@ -47,12 +51,22 @@ export default function News() {
         onChange={(event, page) => {
           setPage(page);
         }}
-        style={{
+        sx={{
           float: "right",
-          position: "relative",
+          marginTop: "1rem",
+          "& .MuiButtonBase-root": {
+            color: theme.font,
+          },
+          // "& .MuiButtonBase-root-MuiPaginationItem-root": {
+          "& .Mui-selected": {
+            backgroundColor: `${theme.logo} !important`,
+          },
+          // },
+          "& .MuiButtonBase-root:hover": {
+            background: theme.logo,
+          },
         }}
         shape="rounded"
-        variant="outlined"
         color="primary"
       />
     </Layout>

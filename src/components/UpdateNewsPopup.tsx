@@ -18,7 +18,7 @@ interface Props {
 }
 export default function UpdateNewsPopup({ news }: Props) {
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm<UpdateInputNews>();
+  const { register, handleSubmit, formState: { errors }, } = useForm<UpdateInputNews>();
   const [visible, setVisible] = useState(false);
   const [imageUrl, setImageUrl] = useState(news.img);
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
@@ -74,11 +74,18 @@ export default function UpdateNewsPopup({ news }: Props) {
               label="Title"
               multiline
               rows={2}
+              error={errors.title !== undefined}
               fullWidth
               style={{
                 marginBottom: "1rem"
               }}
-              {...register("title")}
+              {...register("title", {
+                required: true,
+                minLength: 2,
+              })}
+              helperText={
+                errors.title !== undefined ? "must be 2 character or more" : ""
+              }
               defaultValue={news.title}
             />
             <div
@@ -103,8 +110,15 @@ export default function UpdateNewsPopup({ news }: Props) {
               <TextField
                 label="Author"
                 size="small"
-                {...register("by")}
+                error={errors.by !== undefined}
+                {...register("by", {
+                  required: true,
+                  minLength: 2,
+                })}
                 defaultValue={news.by}
+                helperText={
+                  errors.by !== undefined ? "must be 2 character or more" : ""
+                }
               ></TextField>
             </div>
             <TextField
@@ -115,8 +129,17 @@ export default function UpdateNewsPopup({ news }: Props) {
               style={{
                 marginBottom: "1rem"
               }}
-              {...register("description")}
+              {...register("description", {
+                required: true,
+                minLength: 2,
+              })}
               defaultValue={news.description}
+              helperText={
+                errors.description !== undefined
+                  ? "must be 2 character or more"
+                  : ""
+              }
+              error={errors.description !== undefined}
             ></TextField>
             <div
               style={{

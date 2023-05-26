@@ -10,7 +10,8 @@ interface Props {
 export default function Layout({ children }: Props) {
   return (
       <Container maxWidth="lg" style={{
-        paddingTop: "10rem"
+        paddingTop: "10rem",
+        marginBottom: "10rem"
       }}>
         <Head>
           <title>Movie App</title>

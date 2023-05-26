@@ -12,10 +12,15 @@ import {
   TablePagination,
   Checkbox,
   Button,
+  TextField,
+  InputAdornment,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import AddNewsPopup from "../../components/AddNewsPopup";
 import { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import SearchIcon from "@mui/icons-material/Search";
 import ConfirmPopup from "@/src/components/ConfirmPopup";
 import UpdateNewsPopup from "@/src/components/UpdateNewsPopup";
 import { News } from "@/config/interface";
@@ -32,6 +37,7 @@ export default function EditNews() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const alert = useAppSelector((state) => state.alert);
+  const [searchType, setSearchType] = useState<string>()
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
@@ -45,10 +51,9 @@ export default function EditNews() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  useEffect(() => {}, [selectNews]);
   useEffect(() => {
-  }, [selectNews])
-  useEffect(() => {
-    console.log("hello")
+    console.log("hello");
     const getData = async () => {
       try {
         const response = await fetch("http://localhost:4000", {
@@ -98,7 +103,7 @@ export default function EditNews() {
         );
       };
       deleteNews();
-      setSelectNews([])
+      setSelectNews([]);
     }
     setAgree(false);
     setConfirmOpen(false);
@@ -115,6 +120,24 @@ export default function EditNews() {
           }}
         >
           <Typography variant="h4">Edit News</Typography>
+          <div style={{
+            display: "flex",
+          }}>
+            <Select
+              value={searchType}
+              onChange={(e) => setSearchType(e.target.value)}
+              inputProps={{ "aria-label": "Without label" }}
+              size="small"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Title</MenuItem>
+              <MenuItem value={20}>Author</MenuItem>
+              <MenuItem value={30}>Description</MenuItem>
+            </Select>
+            <TextField label="Search" size="small" variant="filled" />
+          </div>
           <div>
             <Button
               aria-label="delete"
@@ -135,12 +158,12 @@ export default function EditNews() {
             </Button>
           </div>
         </Toolbar>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 700 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
               <TableCell>Title</TableCell>
-              <TableCell>By</TableCell>
+              <TableCell>Author</TableCell>
               <TableCell>Image</TableCell>
               <TableCell>Description</TableCell>
               <TableCell align="right">Edit</TableCell>
@@ -156,7 +179,7 @@ export default function EditNews() {
                       color="error"
                       onChange={(e) => {
                         if (e.currentTarget.checked === true) {
-                          setSelectNews([...selectNews, row.id])
+                          setSelectNews([...selectNews, row.id]);
                         } else {
                           setSelectNews(
                             selectNews.filter((id) => !row.id.includes(id))

@@ -4,19 +4,23 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { News } from "@/config/interface";
+import { useAppSelector } from "../features/Hooks";
 
 
 interface Props {
   news: News;
 }
 export default function NewsCard({ news }: Props) {
+  const theme = useAppSelector(state => state.theme)
   return (
     <Card
-      style={{
+      sx={{
         maxWidth: "50rem",
         margin: "auto",
         marginBottom: "2rem",
         height: "17rem",
+        backgroundColor: theme.inside,
+        color: theme.font
       }}
     >
       <div style={{ display: "flex", height: "100%", position: "relative" }}>

@@ -42,7 +42,7 @@ export default function Details() {
           style={{
             backgroundColor: theme.inside,
             border: "2px solid rgb(184, 4, 4)",
-            borderRadius: "2rem"
+            borderRadius: "2rem",
           }}
         >
           <div
@@ -93,7 +93,7 @@ export default function Details() {
                 </Button>
               </Grid>
               <Grid item xs={4}>
-                <Button  className="button-video">
+                <Button className="button-video">
                   <MdHd />
                   Resolution
                 </Button>
@@ -101,7 +101,7 @@ export default function Details() {
             </Grid>
           </div>
           <Grid container spacing={0} className="detail-main">
-            <Grid item xs={0} md={4}>
+            <Grid item xs={0} sm={4}>
               <CardMedia
                 component="img"
                 className="detail-image"
@@ -110,29 +110,41 @@ export default function Details() {
                 sx={{
                   display: {
                     xs: "none",
-                    md: "block",
+                    sm: "block",
                   },
-                  boxShadow: "0px 0px 5px white"
+                  boxShadow: "0px 0px 5px white",
                 }}
               />
             </Grid>
             <Grid
               item
               xs={12}
-              md={8}
+              sm={8}
               style={{
                 paddingTop: "0.5rem",
+                paddingLeft: "1rem",
+                color: theme.font,
               }}
             >
-              <Typography style={{ fontSize: "2rem" }}>{film.title}</Typography>
-              <Typography variant="subtitle1">Year: {film.year}</Typography>
-              <Typography variant="subtitle1">
-                Director: {film.director}
-              </Typography>
-              <div className="details-information">
-                <Typography style={{ marginBottom: "1rem" }} variant="body1">
-                  {film.information}
+              <div>
+                <Typography style={{ fontSize: "2rem" }}>
+                  {film.title}
                 </Typography>
+                <Typography variant="subtitle1">Year: {film.year}</Typography>
+                <Typography variant="subtitle1">
+                  Director: {film.director}
+                </Typography>
+                <div className="details-information">
+                  <Typography
+                    align="justify"
+                    sx={{
+                      maxWidth: "540px",
+                    }}
+                    variant="body1"
+                  >
+                    {film.information}
+                  </Typography>
+                </div>
               </div>
             </Grid>
           </Grid>
