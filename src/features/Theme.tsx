@@ -5,7 +5,7 @@ const initialState = {
     border: "rgb(184, 4, 4)",
     font: "white",
     background: "rgb(17, 17, 17)",
-    inside: "rgb(48, 47, 47)",
+    inside: "rgb(71 70 70)",
     logo: "orangered"
 }
 export const themeSlice = createSlice({

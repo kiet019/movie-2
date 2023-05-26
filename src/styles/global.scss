@@ -50,17 +50,10 @@ body {
       padding: 2rem 0rem 1.4rem;
     }
   }
-  .show-favor-film {
-    height: 26rem;
-    overflow: hidden;
-    overflow-y: scroll;
-    box-shadow: 0px 0px 4px black;
-  }
 }
 .hover-mouse {
   cursor: pointer;
 }
-
 .input-login {
   border-radius: 2rem;
   margin-bottom: 0.5rem;
@@ -73,25 +66,10 @@ body {
   margin-bottom: 1rem;
   width: 100%;
 }
-.logout:hover {
-  color: red;
-}
-.user-menu {
-  font-size: 1.2rem;
-}
 .form-margin {
   margin-bottom: 1rem;
 }
-.login {
-  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(184, 4, 4));
-  background-size: 2000% 100%;
-  transition: background-position 2s;
-  color: white;
-}
 
-.login:hover {
-  background-position: 100% 0;
-}
 .banner-button {
   position: relative;
   top: 30%;
@@ -129,7 +107,7 @@ body {
     height: 500px;
     align-items: center;
     z-index: 3;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.4);
     opacity: 0;
   }
 }
@@ -143,7 +121,7 @@ body {
 }
 @keyframes  rotateAndFadeIn1 {
   0% {
-    transform: rotate(45deg) translate(-200px, -50px);
+    transform: rotate(45deg) translate(-300px, -50px);
     opacity: 0;
   }
   100% {
@@ -153,7 +131,7 @@ body {
 }
 @keyframes  rotateAndFadeIn2 {
   0% {
-    transform: rotate(45deg) translate(200px, 50px);
+    transform: rotate(45deg) translate(300px, 50px);
     opacity: 0;
   }
   100% {

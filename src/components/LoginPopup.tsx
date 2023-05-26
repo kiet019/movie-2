@@ -19,6 +19,7 @@ import {
 } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 import { auth, ggProvider } from "../../config/firebaseConfig";
+import { useAppSelector } from "../features/Hooks";
 
 export default function LoginPopup() {
   const [visible, setVisible] = useState(false);
@@ -52,15 +53,21 @@ export default function LoginPopup() {
     setUsername("");
     setPassword("");
   }, [sign]);
+  const theme = useAppSelector((state) => state.theme);
   return (
     <>
       <Dialog
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
         open={visible}
         onClose={closeHandler}
         fullWidth
         maxWidth="xs"
+        sx={{
+          "& .MuiPaper-root": {
+            borderRadius: "2rem",
+            border: `3px solid ${theme.border}`,
+            boxShadow: "0px 0px 10px white",
+          },
+        }}
       >
         <DialogTitle>Welcome to Movie-app</DialogTitle>
         <DialogContent>
@@ -187,8 +194,13 @@ export default function LoginPopup() {
           onClick={() => {
             setVisible(true);
           }}
-          className="login"
           size="large"
+          sx={{
+            color: "white",
+            ":hover": {
+              backgroundColor: theme.logo
+            }
+          }}
         >
           login
         </Button>

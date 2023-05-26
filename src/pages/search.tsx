@@ -23,7 +23,7 @@ export default function Type() {
       setFilmList(data);
     }
     getData()
-  }, [title]);
+  }, [title, type]);
   return (
     <>
       {type !== undefined || title !== undefined ? (

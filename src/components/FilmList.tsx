@@ -50,9 +50,20 @@ export default function FilmList({ filmList, header, number }: Props) {
               onChange={(event, page) => {
                 setPage(page);
               }}
-              style={{
+              sx={{
                 float: "right",
-                marginTop: "1rem"
+                marginTop: "1rem",
+                "& .MuiButtonBase-root": {
+                  color: theme.font,
+                },
+                // "& .MuiButtonBase-root-MuiPaginationItem-root": {
+                "& .Mui-selected": {
+                  backgroundColor: `${theme.logo} !important`,
+                },
+                // },
+                "& .MuiButtonBase-root:hover": {
+                  background: theme.logo,
+                },
               }}
               shape="rounded"
               color="primary"

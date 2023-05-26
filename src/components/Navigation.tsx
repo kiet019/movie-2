@@ -113,10 +113,9 @@ export default function Navigation() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  useEffect((  ) => {
-  }, [userStatus]);
+  useEffect(() => {}, [userStatus]);
   const theme = useAppSelector((state) => state.theme);
-  const favor = useAppSelector((state) => state.favorFilmList)
+  const favor = useAppSelector((state) => state.favorFilmList);
   return (
     <>
       <AppBar
@@ -251,27 +250,40 @@ export default function Navigation() {
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open favor list">
                   <IconButton>
-                  <Badge badgeContent={favor.filmList.length} color="primary">
-                    <FavoriteIcon
-                      sx={{
-                        color: theme.border,
-                        height: "1.5em",
-                        width: "1.5em",
-                        transition: "200ms",
-                        ":hover": {
-                          transform: "scale(1.2)",
-                        },
-                      }}
-                      onClick={() => {
-                        handleCloseUserMenu();
-                        router.push("/favor");
-                      }}
-                    />
+                    <Badge badgeContent={favor.filmList.length} color="primary">
+                      <FavoriteIcon
+                        sx={{
+                          color: theme.border,
+                          height: "1.5em",
+                          width: "1.5em",
+                          transition: "200ms",
+                          ":hover": {
+                            transform: "scale(1.2)",
+                          },
+                        }}
+                        onClick={() => {
+                          handleCloseUserMenu();
+                          router.push("/favor");
+                        }}
+                      />
                     </Badge>
                   </IconButton>
                 </Tooltip>
                 <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <IconButton
+                    onClick={handleOpenUserMenu}
+                    sx={{
+                      p: 0,
+                      "& .MuiAvatar-root": {
+                        border: `1px solid ${theme.border}`,
+                        boxShadow: `0px 0px 5px white`,
+                        transition: "200ms",
+                      },
+                      "& .MuiAvatar-root:hover": {
+                        transform: "scale(1.2)",
+                      },
+                    }}
+                  >
                     <div style={{ padding: "0px 11px 0px" }}>
                       <Avatar
                         alt="Remy Sharp"
@@ -285,7 +297,13 @@ export default function Navigation() {
                   </IconButton>
                 </Tooltip>
                 <Menu
-                  sx={{ mt: "45px" }}
+                  sx={{
+                    mt: "45px",
+                    "& .MuiPaper-root": {
+                      backgroundColor: theme.inside,
+                      borderRadius: "1rem",
+                    },
+                  }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
@@ -302,34 +320,47 @@ export default function Navigation() {
                 >
                   <div style={{ padding: "0rem 1rem" }}>
                     <MenuItem>
-                      <Typography variant="h6">
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: theme.logo,
+                        }}
+                      >
                         Sign as <br></br>
                         {auth.currentUser.email}
                       </Typography>
                     </MenuItem>
-                    <MenuItem>
-                      <Typography
-                        className="user-menu"
-                        onClick={() => {
-                          handleCloseUserMenu();
-                          router.push("/edit/news");
-                        }}
-                      >
-                        Edit News
-                      </Typography>
+                    <MenuItem
+                      sx={{
+                        color: theme.font,
+                        transition: "200ms",
+                        ":hover": {
+                          color: theme.logo,
+                        },
+                      }}
+                      onClick={() => {
+                        handleCloseUserMenu();
+                        router.push("/edit/news");
+                      }}
+                    >
+                      <Typography variant="h6">Edit News</Typography>
                     </MenuItem>
-                    <MenuItem>
-                      <Typography
-                        className="user-menu logout"
-                        onClick={() => {
-                          handleCloseUserMenu();
-                          signOut(auth).then(() => {
-                            dispatch(setIsActive({ status: false }));
-                          });
-                        }}
-                      >
-                        Log out
-                      </Typography>
+                    <MenuItem
+                      sx={{
+                        color: theme.font,
+                        transition: "200ms",
+                        ":hover": {
+                          color: "red",
+                        },
+                      }}
+                      onClick={() => {
+                        handleCloseUserMenu();
+                        signOut(auth).then(() => {
+                          dispatch(setIsActive({ status: false }));
+                        });
+                      }}
+                    >
+                      <Typography variant="h6">Log out</Typography>
                     </MenuItem>
                   </div>
                 </Menu>

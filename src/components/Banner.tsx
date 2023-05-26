@@ -22,6 +22,8 @@ export default function Banner({ banners }: Props) {
       style={{
         position: "relative",
         height: "400px",
+        boxShadow: "0px 0px 10px white",
+        borderRadius: "2.2rem",
       }}
     >
       <div

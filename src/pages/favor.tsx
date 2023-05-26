@@ -4,18 +4,13 @@ import { remove, save } from "../features/FavorList";
 import { useEffect, useState } from "react";
 import { Film } from "@/config/interface";
 import Protected from "../components/Protected";
-import { Button, IconButton, Typography } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
-import FilmCard from "../components/FilmCard";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Button, Typography } from "@mui/material";
 import ConfirmPopup from "../components/ConfirmPopup";
+import FilmList from "../components/FilmList";
 export default function Favor() {
   const [filmList, setFilmList] = useState<Film[]>();
   const favorFilmList = useAppSelector((state) => state.favorFilmList);
-  const [confirmOpen, setConfirmOpen] = useState(false)
-  const [agree, setAgree] = useState(false)
   const dispatch = useAppDispatch();
-  const [deleteID, setDeleteID] = useState("")
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(
@@ -30,16 +25,17 @@ export default function Favor() {
     };
     getData();
   }, [favorFilmList.filmList]);
-  useEffect(() => {
-    if (agree === true) {
-      dispatch(remove(deleteID))
-      setConfirmOpen(false)
-    }
-  }, [agree])
+  const theme = useAppSelector((state) => state.theme);
   return (
     <Layout>
       <Protected>
-        <Typography variant="h3" margin={3}>
+        <Typography
+          variant="h3"
+          margin={3}
+          sx={{
+            color: theme.font,
+          }}
+        >
           Favorite Films
         </Typography>
         <Button
@@ -51,49 +47,18 @@ export default function Favor() {
           save
         </Button>
         <div className="show-favor-film">
-          <Grid container spacing={3}>
-            {filmList !== undefined ? (
-              filmList
-                .filter((film) => favorFilmList.filmList.includes(film.id))
-                .map((film) => {
-                  return (
-                    <Grid xs={6} sm={6} md={4} key={film.id}>
-                      <div
-                        style={{
-                          position: "relative",
-                        }}
-                      >
-                        <FilmCard film={film} />
-                        <IconButton
-                          aria-label="delete"
-                          style={{
-                            position: "absolute",
-                            right: "0",
-                            bottom: "0",
-                          }}
-                          onClick={() => {
-                            setConfirmOpen(true)
-                            setDeleteID(film.id)
-                          }}
-                        >
-                          <DeleteIcon
-                            style={{
-                              width: 30,
-                              height: 30,
-                            }}
-                            color="error"
-                          />
-                        </IconButton>
-                      </div>
-                    </Grid>
-                  );
-                })
-            ) : (
-              <></>
-            )}
-          </Grid>
+          {filmList !== undefined ? (
+            <FilmList
+              filmList={filmList.filter((film) =>
+                favorFilmList.filmList.includes(film.id)
+              )}
+              header=""
+              number={6}
+            />
+          ) : (
+            <></>
+          )}
         </div>
-        <ConfirmPopup confirmOpen={confirmOpen} message="Delete this Film ?" setConfirmOpen={setConfirmOpen} setAgree={setAgree}/>
       </Protected>
     </Layout>
   );
